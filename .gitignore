@@ -1,1 +1,3 @@
-card/__pychache__/.
+.card/__pychache__/
+.db.sqlite3
+.media/

@@ -46,9 +46,28 @@
 {% endif %}
 
 {% block field_sets %}
-{% for fieldset in adminform %}
-  {% include "admin/includes/fieldset.html" %}
-{% endfor %}
+    <div class="change-form-container" style="display: flex; 
+    flex-direction: row;
+    align-items: flex-start; 
+    margin-bottom: 10px;">
+        <div class="left-section" style="flex:1;">
+            {% for fieldset in adminform %}
+                {% include "admin/includes/fieldset.html" %}
+            {% endfor %}
+        </div>
+        <div class="right-section" 
+        style="
+        margin-left:40px;
+        flex: 1;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;">
+            {% if instance.image %}
+                <p>Card image preview:</p>
+                <img src="{{ instance.image.url }}" alt="Image Preview" style="max-width: 500px; max-height: 500px;">    
+            {% endif %}
+        </div>    
+    </div>
 {% endblock %}
 
 {% block after_field_sets %}{% endblock %}
