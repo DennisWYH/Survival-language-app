@@ -1,3 +1,4 @@
-.card/__pychache__/
-.db.sqlite3
-.media/
+db.sqlite3
+media/
+card/__pycache__
+card/__pycache__/__init__.cpython-312.pyc
