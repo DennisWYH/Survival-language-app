@@ -3,10 +3,10 @@ from .models import Card
 from django.template import loader
 
 def index(request):
-    card = Card.objects.get(1)
-    template = loader.get_template("card/index.html")
+    allCards = Card.objects.all()
+    template = loader.get_template("card/card_index.html")
     context = {
-        "card": card,
+        "cards": allCards,
     }
     return HttpResponse(template.render(context, request))
 
@@ -16,5 +16,4 @@ def detail(request, card_id):
     context = {
         "card": card,
     }
-    print(card)
     return HttpResponse(template.render(context, request))
