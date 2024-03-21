@@ -59,17 +59,17 @@
 
 </head>
 <body>
-
     <div class="sidebar">
-        <button class="toggle-button" data-collapsed="false">←</button>
-        <a href="/card">View Card</a>
+        <button class="toggle-button" data-collapsed="false">←</button>        
+        <h3>Sidebar</h3>
+        <a href="/card">View all cards</a> 
+        <p>This is your sidebar content.</p>
     </div>
     <div class="page-container">
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">ID</th>                
                 <th scope="col">Preview</th>                
                 <th scope="col">Uploader</th>
                 <th scope="col">Source language</th>
@@ -82,7 +82,6 @@
                 {% for card in cards %}
                 <tr class="clickable-row" data-href="/card/{{ card.id }}/">
                     <th scope="row">{{ forloop.counter}}</th>
-                    <td>{{ card.id }}</td>
                     <th><img src="{{ card.image.url}}" style="width: 50px; height: 50px;"></th>
                     <td>{{ card.upload_by_userName }}</td>
                     <td>{{ card.lan }}</td>
