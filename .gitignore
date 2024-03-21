@@ -2,3 +2,7 @@ db.sqlite3
 media/
 card/__pycache__
 card/__pycache__/__init__.cpython-312.pyc
+languageApp/__pycache__/settings.cpython-312.pyc
+languageApp/__pycache__/urls.cpython-312.pyc
+card/__pycache__/views.cpython-312.pyc
+card/__pycache__/urls.cpython-312.pyc
