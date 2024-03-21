@@ -38,8 +38,11 @@
             transition: width 0.5s;
         }
         .sidebar.collapsed {
-            width: 50px;
+            width: 100px;
             overflow: hidden;
+        }
+        .sidebar-elements {
+            margin-top: 80px;
         }
         .toggle-button {
             position: absolute;
@@ -62,10 +65,11 @@
 </head>
 <body>
     <div class="sidebar">
-        <button class="toggle-button" data-collapsed="false">←</button>        
-        <h3>Sidebar</h3>
-        <a href="{% url 'index' %}">View all cards</a> 
-        <p>This is your sidebar content.</p>
+        <button class="toggle-button" data-collapsed="false">←</button>  
+        <div class="sidebar-elements">
+            <h3>Sidebar</h3>
+            <a href="{% url 'card:index' %}">View all cards</a>
+        </div>
     </div>
     <div class="page-container">
         <h1>Card Detail</h1>
