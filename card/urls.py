@@ -4,9 +4,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    # ex: /cards/
+    # ex: /card/
     path("", views.index, name="index"),
-    # ex: /cards/5/
+    # ex: /card/3/
     path("<int:card_id>/", views.detail, name="detail"),
 ]
 if settings.DEBUG:
