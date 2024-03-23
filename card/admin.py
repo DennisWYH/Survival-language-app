@@ -5,7 +5,7 @@ from django.utils import timezone
 
 
 class CardAdmin(admin.ModelAdmin):
-    fields = ["image", "text", "lan", "creation_date", "modification_date", "upload_by_userName"]
+    fields = ["image", "text", "grade", "lan", "creation_date", "modification_date", "upload_by_userName"]
     list_display = ["image", "lan", "text", "upload_by_userName", "modification_date", "creation_date"]
     def change_view(self, request, object_id, form_url='', extra_context=None):
         # Get the object instance
@@ -26,6 +26,12 @@ class CardAdmin(admin.ModelAdmin):
         if not obj.upload_by_userName:
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
+
+    class Media:
+        css = {
+            'all': ('css/admin.css',)
+        }
+        js = ('js/admin.js',)         
 
 # Register your models here.
 admin.site.register(Card, CardAdmin)
