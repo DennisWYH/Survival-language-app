@@ -62,13 +62,7 @@
 
 </head>
 <body>
-    <div class="sidebar">
-        <button class="toggle-button" data-collapsed="false">←</button>        
-        <div class="sidebar-elements">
-            <h3>Sidebar</h3>
-            <a href="{% url 'card:index' %}">View all cards</a> 
-        </div>
-    </div>
+    {% include './card_sidebar.html' %}
     <div class="page-container">
         <table class="table">
             <thead>
@@ -106,18 +100,6 @@
                     window.location.href = row.dataset.href;
                 });
             });
-        });
-    </script>
-    <script>
-        document.querySelector(".toggle-button").addEventListener("click", function() {
-            const sidebar = document.querySelector(".sidebar");
-            const pageContainer = document.querySelector(".page-container");
-            const button = document.querySelector(".toggle-button");
-            const isCollapsed = button.dataset.collapsed === "true";
-            sidebar.classList.toggle("collapsed");
-            pageContainer.classList.toggle("collapsed");
-            button.dataset.collapsed = !isCollapsed;
-            button.textContent = isCollapsed ? "←" : "→";
         });
     </script>
     <!-- Bootstrap 5 JavaScript -->
