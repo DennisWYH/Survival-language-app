@@ -13,6 +13,25 @@
             max-width: 500px;
             max-height: 500px;
         }
+        .grade-dot {
+            display: inline-flex;
+            align-items: center;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .grade-4 { background-color: green; }
+        .grade-5 { background-color: #3271a8; }
+        .grade-6a { background-color: black; }
+        .grade-6a-plus { background-color: orange; }
+        .grade-6b { background-color: yellow; }
+        .grade-6b-plus { background-color: blue; }
+        .grade-6c { background-color: red; }
+        .grade-6c-plus { background-color: purple; }
+        .grade-7a { background-color: white; }
+        .grade-7a-plus { background-color: mediumaquamarine; }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">    {% load static %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="{% static 'card/sidebar.css' %}">
@@ -32,7 +51,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Preview</th>                
                 <th scope="col">Uploader</th>
-                <th scope="col">Source language</th>
+                <th scope="col">Language</th>
+                <th scope="col">Grade</th>
                 <th scope="col">Text</th>
                 <th scope="col">CreatedAt</th>
                 <th scope="col">ModifiedAt</th>
@@ -40,11 +60,17 @@
             </thead>
             <tbody>
                 {% for card in cards %}
-                <tr class="clickable-row" data-href="/card/{{ card.id }}/">
+                <tr class="clickable-row" data-href="/card/{{ card.id }}/" data-grade="{{ card.grade }}">
                     <th scope="row">{{ forloop.counter}}</th>
                     <th><img src="{{ card.image.url}}" style="width: 50px; height: 50px;"></th>
                     <td>{{ card.upload_by_userName }}</td>
                     <td>{{ card.lan }}</td>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <span class="grade-dot"></span>
+                            {{ card.grade }}
+                        </div>
+                    </td>
                     <td>{{ card.text }}</td>
                     <td>{{ card.creation_date }}</td>
                     <td>{{ card.modification_date }}</td>
@@ -61,6 +87,12 @@
                 row.addEventListener("click", () => {
                     window.location.href = row.dataset.href;
                 });
+            });
+            const gradeDots = document.querySelectorAll(".grade-dot");
+            gradeDots.forEach(dot => {
+                let grade = dot.closest(".clickable-row").dataset.grade;
+                grade = grade.replace(/\+/g, '-plus');
+                dot.classList.add('grade-' + grade);
             });
         });
     </script>
