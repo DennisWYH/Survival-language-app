@@ -6,7 +6,8 @@ from django.utils import timezone
 
 class CardAdmin(admin.ModelAdmin):
     fields = ["image", "text", "grade", "lan", "creation_date", "modification_date", "upload_by_userName"]
-    list_display = ["image", "lan", "text", "upload_by_userName", "modification_date", "creation_date"]
+    list_display = ["image", "lan", "grade", "text", "upload_by_userName", "modification_date", "creation_date"]
+    list_display_links = ["text"]
     def change_view(self, request, object_id, form_url='', extra_context=None):
         # Get the object instance
         obj = Card.objects.get(pk=object_id)
