@@ -1,13 +1,25 @@
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Card
 from django.template import loader
 from django.http import Http404
+from .models import Card, UserCardAnswer
 
+@login_required
 def index(request):
-    allCards = Card.objects.all()
+    cards = Card.objects.all()
+    user_card_answers = UserCardAnswer.objects.filter(user=request.user)
+
+    user_answers = {uca.card.id: uca.answer.answer_text for uca in user_card_answers}
+
+    # Add the user's answer to each card
+    for card in cards:
+        card.user_answer = user_answers.get(card.id)
+
+
     template = loader.get_template("card/card_index.html")
     context = {
-        "cards": allCards,
+        "cards": cards,
     }
     return HttpResponse(template.render(context, request))
 
