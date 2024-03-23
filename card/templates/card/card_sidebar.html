@@ -1,9 +1,9 @@
 <div class="sidebar">
-    <button class="toggle-button" data-collapsed="false">←</button>        
     <div class="sidebar-elements">
         <h3>Sidebar</h3>
         <a href="{% url 'card:index' %}">View all cards</a> 
     </div>
+    <button class="toggle-button" data-collapsed="false"><  Collapse Sidebar</button>      
 </div>
 
 <script>
@@ -15,6 +15,6 @@
         sidebar.classList.toggle("collapsed");
         pageContainer.classList.toggle("collapsed");
         button.dataset.collapsed = !isCollapsed;
-        button.textContent = isCollapsed ? "←" : "→";
+        button.textContent = isCollapsed ? "<  Collapse Sidebar" : ">>";
     });
 </script>
