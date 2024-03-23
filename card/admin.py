@@ -27,11 +27,5 @@ class CardAdmin(admin.ModelAdmin):
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
 
-    class Media:
-        css = {
-            'all': ('css/admin.css',)
-        }
-        js = ('js/admin.js',)         
-
 # Register your models here.
 admin.site.register(Card, CardAdmin)
