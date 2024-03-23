@@ -7,8 +7,22 @@ class Card(models.Model):
         ("EN", "English"),
         ("CN", "Chinese"),
     ]
+    GRADE_CHOICES = [
+        ("8", "rainbow"),
+        ("7a+", "mint"),
+        ("7a", "White"),
+        ("6c+", "purple"),
+        ("6c", "red"),
+        ("6b+", "DarkBlue"),
+        ("6b", "Yellow"),
+        ("6a+", "Orange"),
+        ("6a", "Black"),
+        ("5", "LightBlue"),
+        ("4", "Green"),
+    ]
     image = models.ImageField("image of the card", upload_to="card", default='')
     lan = models.CharField("language", max_length=2, choices=LAN_ORIGIN_CHOICES, default='')
+    grade = models.CharField("grade", max_length=3, choices=GRADE_CHOICES, default='')
     text = models.CharField("text extration of the image", max_length=500, default='', blank=True)
     creation_date = models.DateTimeField("date created")
     modification_date = models.DateTimeField("date modified", blank=True)
