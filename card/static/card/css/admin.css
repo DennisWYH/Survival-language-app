@@ -1,0 +1,14 @@
+.color-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.color-green { background-color: green; }
+.color-black { background-color: black; }
+.color-blue { background-color: blue; }
+.color-orange { background-color: orange; }
+.color-yellow { background-color: yellow; }
+.color-white { background-color: white; }
+.color-mint { background-color: mint; }
