@@ -5,6 +5,7 @@ from django.http import Http404
 from .models import Card, UserCardAnswer
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -32,6 +33,9 @@ def index(request):
         "cards": cards,
     }
     return HttpResponse(template.render(context, request))
+
+def about(request):
+    return render(request, "card/card_about.html")
 
 def detail(request, card_id):
     if request.method == 'GET':
