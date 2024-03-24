@@ -1,18 +1,15 @@
 .page-container {
-    max-width: 1200px;
+    max-width: 1100px;
     min-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 20px auto 0 260px; /* top, right, bottom, left */
+    padding: 0px 20px 20px 10px; /* top, right, bottom, left */
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- }
- .page-container {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     margin-left: 260px;
-    padding: 20px;
     padding-left: 10px;
     transition: margin-left 0.5s;
-}    
+ }
 .page-container.collapsed {
     margin-left: 140px;
 }    
