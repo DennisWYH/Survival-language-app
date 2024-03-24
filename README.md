@@ -42,7 +42,7 @@ Add a brief description of your project here.
     python manage.py createsuperuser
     ```
 
-4. Visit `localhost:8000` in your web browser to test out the web application.
+4. Visit `localhost:8000/card` in your web browser to test out the web application.
 
 ## Contact
 
