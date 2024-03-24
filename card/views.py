@@ -1,10 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Card
 from django.template import loader
 from django.http import Http404
 from .models import Card, UserCardAnswer
 from django import forms
+from django.views.decorators.csrf import csrf_exempt
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -58,3 +58,18 @@ def detail(request, card_id):
     #             defaults={'answer': form.cleaned_data['answer']}
     #         )
     #         return redirect('card_detail', card_id=card_id)
+
+@csrf_exempt
+def update_answer(request, card_id):
+    if request.method == 'POST':
+        user = request.user
+        answer_text = request.POST.get('answer')
+        card_answer = CardAnswer.objects.get(answer_text=answer_text)
+        
+        UserCardAnswer.objects.update_or_create(
+            user=user, 
+            card_id=card_id, 
+            defaults={'answer': card_answer}
+        )
+
+        return JsonResponse({'status': 'success'})

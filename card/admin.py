@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Card
+from .models import Card, UserCardAnswer
 from django.utils import timezone
-
 
 class CardAdmin(admin.ModelAdmin):
     fields = ["image", "text", "grade", "lan", "creation_date", "modification_date", "upload_by_userName"]
@@ -28,5 +27,12 @@ class CardAdmin(admin.ModelAdmin):
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
 
+class CardAnswerAdmin(admin.ModelAdmin):
+    list_display = ['id', 'card', 'answer_text']
+
+class UserCardAnswerAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'card', 'answer', 'timestamp']
+
 # Register your models here.
 admin.site.register(Card, CardAdmin)
+admin.site.register(UserCardAnswer, UserCardAnswerAdmin)

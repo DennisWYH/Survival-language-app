@@ -30,19 +30,17 @@ class Card(models.Model):
     def __str__(self):
         return self.image.name
 
-class CardAnswer(models.Model):
+class UserCardAnswer(models.Model):
     CARD_ANSWER_CHOICES = [
         ("FL", "flash"),
         ("DN", "done"),
         ("PA", "pass"),
         ("RE", "repeat")
     ]
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    answer_text = models.CharField(max_length=2, choices=CARD_ANSWER_CHOICES)
-
-class UserCardAnswer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    answer = models.ForeignKey(CardAnswer, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=2, choices=CARD_ANSWER_CHOICES)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('user', 'card',)

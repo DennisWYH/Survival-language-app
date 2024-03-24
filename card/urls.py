@@ -9,6 +9,8 @@ urlpatterns = [
     path("", views.index, name="index"),
     # ex: /card/3/
     path("<int:card_id>/", views.detail, name="detail"),
+    # ex: /card/3/update-answer/
+    path("<int:card_id>/update-answer/", views.update_answer, name="update_answer"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
