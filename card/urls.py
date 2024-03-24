@@ -8,7 +8,7 @@ urlpatterns = [
     # ex: /card/
     path("", views.index, name="index"),
     # ex: /card/about
-    path("", views.about, name="about"),
+    path("about/", views.about, name="about"),
     # ex: /card/3/
     path("<int:card_id>/", views.detail, name="detail"),
     # ex: /card/3/update-answer/

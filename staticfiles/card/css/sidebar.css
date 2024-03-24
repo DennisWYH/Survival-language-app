@@ -37,6 +37,7 @@
 
 .sidebar-element:hover {
     background-color: #e0e0e0; /* Change the background color on hover */
+    text-decoration: none;
 }
 
 .toggle-button {

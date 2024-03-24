@@ -1,14 +1,162 @@
-<div class="sidebar">
-    <div class="sidebar-elements-container">
-        <p class="sidebar-element">Sidebar</p>
-        <a class="sidebar-element" href="{% url 'card:index' %}">
-            <i class="fas fa-clone"></i>
-            <span class="link-text">View all cards</span>
-        </a> 
-        <a class="sidebar-element" href="{% url 'card:about' %}">
-            <i class="fas fa-info-circle"></i>
-            <span class="link-text">About the site</span>
-        </a> 
-    </div>
-    <button class="toggle-button" data-collapsed="false"><  Collapse Sidebar</button>      
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">    
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'card/css/container.css' %}">
+    <link rel="stylesheet" href="{% static 'card/css/sidebar.css' %}">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    {% include './card_sidebar.html' %}
+    <div class="page-container">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h2 class="card-title">About the Site</h2>
+                            <p class="card-text">
+                                This site provides real-life foreign language materials sourced from everyday contexts. Unlike traditional tools that mechanically prompt you to recite new vocabulary or sentences, this platform offers real-life puzzles for you to solve, enhancing comprehension and enjoyment simultaneously.
+                            </p>
+                            <p class="card-text">
+                                You might come across a job posting at a supermarket seeking more staff or a local municipality announcement informing you about new trash bins for kitchen waste disposal.
+                            </p>
+                            <p class="card-text">
+                                I hold the belief that language learning becomes more engaging and meaningful when connected to real-life applications.                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <h2>Grade Color Chart (higher number is more difficult)</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Grade</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>8</td>
+                        <td>
+                            <img src="{% static 'card/css/unicorn.png' %}" alt="Rainbow Unicorn" style="width: 20px; height: 20px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7a+</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: mediumaquamarine;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>7a</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: lightgrey;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>6c+</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color:purple;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>6c</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: red;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>6b+</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: blue;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>6b</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: yellow;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>6a+</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: orange;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>6a</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: black;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3271a8;"></div>
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: green;"></div>
+                        </td>                   
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    var cardID = "{{ card.id }}";
+    var csrfToken = '{{ csrf_token }}';
+    $(document).ready(function() {
+    $('body').on('click', '.answer-btn', function() {  // use event delegation
+        console.log("------ request being sent --------")
+        var value = $(this).data('value');
+        $.ajax({
+            url: '/card/' + cardID + '/update-answer/',
+            method: 'POST',
+            data: {
+                'csrfmiddlewaretoken': csrfToken,
+                'answer': value
+            },
+        });
+
+        $('.answer-btn').removeClass('btn-checked');
+        $(this).addClass('btn-checked');
+    });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const gradeDots = document.querySelectorAll(".grade-dot");
+        gradeDots.forEach(dot => {
+            let grade = dot.parentElement.dataset.grade;
+            grade = grade.replace(/\+/g, '-plus');
+            dot.classList.add('grade-' + grade);
+        });
+    });
+
+    </script>
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
