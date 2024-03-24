@@ -46,11 +46,16 @@ def detail(request, card_id):
         except UserCardAnswer.DoesNotExist:
             user_card_answer = None
 
+        previous_card = Card.objects.filter(pk__lt=card_id).order_by('-id').first()
+        next_card = Card.objects.filter(pk__gt=card_id).order_by('id').first()
+
         template = loader.get_template("card/card_detail.html")
         context = {
             "card": card,
             'form': form,
             'user_card_answer': user_card_answer,
+            'previous_card': previous_card,
+            'next_card': next_card,
         }
         return HttpResponse(template.render(context, request))
     

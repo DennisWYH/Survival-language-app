@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">    {% load static %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="{% static 'card/sidebar.css' %}">
     {% load static %}
+    <link rel="stylesheet" href="{% static './card/css/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'card/css/container.css' %}">
     <link rel="stylesheet" href="{% static 'card/css/sidebar.css' %}">
     <!-- Bootstrap 5 CSS -->
@@ -68,6 +69,16 @@
            </div>
         </div>
     </div>
+
+    <div class="navigation">
+        {% if previous_card %}
+            <a href="{% url 'card:detail' previous_card.id %}" class="btn btn-primary">Previous</a>
+        {% endif %}
+        {% if next_card %}
+            <a href="{% url 'card:detail' next_card.id %}" class="btn btn-primary">Next</a>
+        {% endif %}
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
     var cardID = "{{ card.id }}";
