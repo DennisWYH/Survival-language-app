@@ -20,7 +20,7 @@ def index(request):
     cards = Card.objects.all()
     user_card_answers = UserCardAnswer.objects.filter(user=request.user)
 
-    user_answers = {uca.card.id: uca.answer.answer_text for uca in user_card_answers}
+    user_answers = {uca.card.id: uca.answer for uca in user_card_answers}
 
     # Add the user's answer to each card
     for card in cards:
@@ -41,11 +41,16 @@ def detail(request, card_id):
             raise Http404("Card does not exist")
 
         form = UserCardAnswerForm()
+        try:
+            user_card_answer = UserCardAnswer.objects.get(user=request.user, card=card)
+        except UserCardAnswer.DoesNotExist:
+            user_card_answer = None
 
         template = loader.get_template("card/card_detail.html")
         context = {
             "card": card,
             'form': form,
+            'user_card_answer': user_card_answer,
         }
         return HttpResponse(template.render(context, request))
     
