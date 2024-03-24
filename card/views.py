@@ -65,16 +65,14 @@ def detail(request, card_id):
     #         return redirect('card_detail', card_id=card_id)
 
 @csrf_exempt
+@login_required
 def update_answer(request, card_id):
     if request.method == 'POST':
         user = request.user
-        answer_text = request.POST.get('answer')
-        card_answer = CardAnswer.objects.get(answer_text=answer_text)
-        
-        UserCardAnswer.objects.update_or_create(
-            user=user, 
-            card_id=card_id, 
-            defaults={'answer': card_answer}
+        answer = request.POST.get('answer')
+        card = Card.objects.get(pk=card_id)
+        user_card_answer, created = UserCardAnswer.objects.update_or_create(
+            user=request.user, card=card, defaults={'answer': answer}
         )
-
+        
         return JsonResponse({'status': 'success'})
