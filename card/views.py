@@ -4,6 +4,16 @@ from .models import Card
 from django.template import loader
 from django.http import Http404
 from .models import Card, UserCardAnswer
+from django import forms
+
+class UserCardAnswerForm(forms.Form):
+    CARD_ANSWER_CHOICES = [
+        ("FL", "FLASH"),
+        ("DN", "DONE"),
+        ("PA", "PASS"),
+        ("RE", "REPEATE")
+    ]
+    answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
 @login_required
 def index(request):
@@ -24,12 +34,27 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def detail(request, card_id):
-    try:
-        card = Card.objects.get(pk=card_id)
-    except Card.DoesNotExist:
-        raise Http404("Card does not exist")
-    template = loader.get_template("card/card_detail.html")
-    context = {
-        "card": card,
-    }
-    return HttpResponse(template.render(context, request))
+    if request.method == 'GET':
+        try:
+            card = Card.objects.get(pk=card_id)
+        except Card.DoesNotExist:
+            raise Http404("Card does not exist")
+
+        form = UserCardAnswerForm()
+
+        template = loader.get_template("card/card_detail.html")
+        context = {
+            "card": card,
+            'form': form,
+        }
+        return HttpResponse(template.render(context, request))
+    
+    # if request.method == 'POST':
+    #     form = UserCardAnswerForm(request.POST)
+    #     if form.is_valid():
+    #         UserCardAnswer.objects.update_or_create(
+    #             user=request.user,
+    #             card=card,
+    #             defaults={'answer': form.cleaned_data['answer']}
+    #         )
+    #         return redirect('card_detail', card_id=card_id)
