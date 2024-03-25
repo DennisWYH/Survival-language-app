@@ -10,6 +10,9 @@
     padding-left: 10px;
     transition: margin-left 0.5s;
  }
+.page-container:hover {
+    cursor: pointer;
+}
 .page-container.collapsed {
     margin-left: 140px;
 }    
