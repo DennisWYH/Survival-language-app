@@ -42,85 +42,122 @@
             </div>
         </div>
         <div class="container mt-5">
-            <h2>Grade Color Chart (higher number is more difficult)</h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Grade</th>
-                        <th>Color</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>8</td>
-                        <td>
-                            <img src="{% static 'card/css/unicorn.png' %}" alt="Rainbow Unicorn" style="width: 20px; height: 20px;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7a+</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: mediumaquamarine;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>7a</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: lightgrey;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>6c+</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color:purple;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>6c</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: red;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>6b+</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: blue;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>6b</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: yellow;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>6a+</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: orange;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>6a</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: black;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3271a8;"></div>
-                        </td>                   
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: green;"></div>
-                        </td>                   
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
-        </div>    </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h2 class="card-title">Flash/Done/Pass/Repeat</h2>
+                            <p class="card-text">
+                                These are concepts borrowed from climbing world.
+                            </p>
+                            <p class="card-text">
+                                Flash, means that you understand the card problem on the first attemp without any additional help.
+                            </p>
+                            <p class="card-text">
+                                Done, means that you understand the card problem with some help from dictionary look up.
+                            </p>
+                            <p class="card-text">
+                                Pass, means that the card is by any chance too difficulty for you and it's a hassle to look up all the words, so you don't want to work on it for the moment. 
+                            </p>
+                            <p class="card-text">
+                                Repeat, means that you've done the problem before, and now you're repeating the exercise for fun.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card mt-4">
+                        <h2>Grade Color Chart (higher number is more difficult)</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Grade</th>
+                                    <th>Color</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <img src="{% static 'card/css/unicorn.png' %}" alt="Rainbow Unicorn" style="width: 20px; height: 20px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7a+</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: mediumaquamarine;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>7a</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: lightgrey;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>6c+</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color:purple;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>6c</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: red;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>6b+</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: blue;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>6b</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: yellow;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>6a+</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: orange;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>6a</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: black;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3271a8;"></div>
+                                    </td>                   
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: green;"></div>
+                                    </td>                   
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>    
+                                </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
