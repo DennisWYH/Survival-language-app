@@ -7,7 +7,7 @@ Add a brief description of your project here.
 1. Clone the repository locally:
 
     ```bash
-    git clone <repo-url>
+    git@github.com:DennisWYH/survival-language-app.git
     ```
 
 2. Navigate to the project directory:
@@ -15,11 +15,12 @@ Add a brief description of your project here.
     ```bash
     cd <project-directory>
     ```
+3. Make sure that python3 is installed
 
-3. If you encounter any missing packages, install them using pip:
+4. Install all project dependencies them using pip (ideally in a python virtual env):
 
     ```bash
-    pip install <missing-package>
+    pip install -r requirements.txt
     ```
 
 ## Running the Application
@@ -42,8 +43,6 @@ Add a brief description of your project here.
     python manage.py createsuperuser
     ```
 
-4. Visit `localhost:8000/card` in your web browser to test out the web application.
+4. Visit `localhost:8000/admin` in your web browser to check out the admin url endpoints.
 
-## Contact
-
-For any issues, please contact [wangyh@yeah.net](mailto:wangyh@yeah.net).
+5. Visit `localhost:8000/card` in your web browser to test out the customer url endpoints.
