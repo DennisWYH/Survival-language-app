@@ -6,6 +6,7 @@ class Card(models.Model):
         ("NL", "Dutch"),
         ("EN", "English"),
         ("CN", "Chinese"),
+        ("IT", "Italian"),
     ]
     GRADE_CHOICES = [
         ("8", "rainbow"),

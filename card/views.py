@@ -17,8 +17,11 @@ class UserCardAnswerForm(forms.Form):
     answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
 @login_required
-def index(request):
-    cards = Card.objects.all()
+def index(request, language=None):
+    if language:
+        cards = Card.objects.filter(lan=language)
+    else:
+        cards = Card.objects.all()
     user_card_answers = UserCardAnswer.objects.filter(user=request.user)
 
     user_answers = {uca.card.id: uca.answer for uca in user_card_answers}
@@ -37,7 +40,7 @@ def index(request):
 def about(request):
     return render(request, "card/card_about.html")
 
-def detail(request, card_id):
+def detail(request, card_id, language=None):
     if request.method == 'GET':
         try:
             card = Card.objects.get(pk=card_id)
@@ -50,8 +53,12 @@ def detail(request, card_id):
         except UserCardAnswer.DoesNotExist:
             user_card_answer = None
 
-        previous_card = Card.objects.filter(pk__lt=card_id).order_by('-id').first()
-        next_card = Card.objects.filter(pk__gt=card_id).order_by('id').first()
+        if language:
+            previous_card = Card.objects.filter(pk__lt=card_id, lan=language).order_by('-id').first()
+            next_card = Card.objects.filter(pk__gt=card_id, lan=language).order_by('id').first()
+        else:
+            previous_card = Card.objects.filter(pk__lt=card_id).order_by('-id').first()
+            next_card = Card.objects.filter(pk__gt=card_id).order_by('id').first()
 
         template = loader.get_template("card/card_detail.html")
         context = {
