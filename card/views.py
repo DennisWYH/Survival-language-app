@@ -34,6 +34,7 @@ def index(request, language=None):
     template = loader.get_template("card/card_index.html")
     context = {
         "cards": cards,
+        "language": language,
     }
     return HttpResponse(template.render(context, request))
 

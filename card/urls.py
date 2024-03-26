@@ -5,8 +5,10 @@ from django.conf import settings
 
 app_name = "card"
 urlpatterns = [
-    # ex: /card/
-    path("<str:language>", views.index, name="index"),
+    # ex: /card
+    path("", views.index, name="index"),
+    # ex: /card/en
+    path("<str:language>/", views.index, name="index"),
     # ex: /card/about
     path("about/", views.about, name="about"),
     # ex: /card/3/
