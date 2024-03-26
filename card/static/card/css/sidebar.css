@@ -28,11 +28,19 @@
 .sidebar-element {
     display: block;
     width: 100%;
-    padding: 10px 10px 10px 10px;
     background-color: #f5f5f5;
     transition: background-color 0.3s;
     text-decoration: none;
     color: #666;
+}
+
+.sidebar-link {
+    padding: 10px 10px 10px 10px;
+}
+
+.sidebar-profile {
+    width: 20px;
+    height: 20px;
 }
 
 .sidebar-element:hover {
