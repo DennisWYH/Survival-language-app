@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 class Card(models.Model):
     LAN_ORIGIN_CHOICES = [
-        ("NL", "Dutch"),
-        ("EN", "English"),
-        ("CN", "Chinese"),
-        ("IT", "Italian"),
+        ("nl", "Dutch"),
+        ("en", "English"),
+        ("cn", "Chinese"),
+        ("it", "Italian"),
     ]
     GRADE_CHOICES = [
         ("8", "rainbow"),
