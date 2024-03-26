@@ -16,12 +16,8 @@ class UserCardAnswerForm(forms.Form):
     ]
     answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
-@login_required
-def index(request, language=None):
-    if language:
-        cards = Card.objects.filter(lan=language)
-    else:
-        cards = Card.objects.all()
+def index(request, language='nl'):
+    cards = Card.objects.filter(lan=language)
     user_card_answers = UserCardAnswer.objects.filter(user=request.user)
 
     user_answers = {uca.card.id: uca.answer for uca in user_card_answers}
@@ -41,6 +37,8 @@ def index(request, language=None):
 def about(request):
     return render(request, "card/card_about.html")
 
+@csrf_exempt
+@login_required
 def detail(request, card_id, language=None):
     if request.method == 'GET':
         try:
@@ -55,6 +53,7 @@ def detail(request, card_id, language=None):
             user_card_answer = None
 
         if language:
+            print("------ langeuage", language )
             previous_card = Card.objects.filter(pk__lt=card_id, lan=language).order_by('-id').first()
             next_card = Card.objects.filter(pk__gt=card_id, lan=language).order_by('id').first()
         else:
@@ -81,7 +80,6 @@ def detail(request, card_id, language=None):
     #         )
     #         return redirect('card_detail', card_id=card_id)
 
-@csrf_exempt
 @login_required
 def update_answer(request, card_id):
     if request.method == 'POST':
