@@ -1,15 +1,25 @@
+{% load static %}
 <div class="sidebar">
     <div class="sidebar-elements-container">
-        <p class="sidebar-element">Sidebar</p>
-        <a class="sidebar-element" href="{% url 'user:profile'%}">
+        <p class="sidebar-profile">
+            {% if user.is_authenticated %}
+                <p>
+                    <img class="img-thumbnail rounded sidebar-profile" src="{% static './unicorn.png' %}" alt="profile">    
+                    {{ user.username }}
+                </p>
+            {% else %}
+                <p>Welcome, Guest</p>
+            {% endif %}
+        </p>
+        <a class="sidebar-element sidebar-link" href="{% url 'user:profile'%}">
             <i class="fas fa-user mr-2"></i>
             <span class="link-text">View my profile</span>
         </a> 
-        <a class="sidebar-element" href="{% url 'card:index'%}">
+        <a class="sidebar-element sidebar-link" href="{% url 'card:index'%}">
             <i class="fas fa-clone mr-2"></i>
             <span class="link-text">View all cards</span>
         </a> 
-        <a class="sidebar-element" href="{% url 'card:about' %}">
+        <a class="sidebar-element sidebar-link" href="{% url 'card:about' %}">
             <i class="fas fa-info-circle mr-2"></i>
             <span class="link-text">About the site</span>
         </a> 
