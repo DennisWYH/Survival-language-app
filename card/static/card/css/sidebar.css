@@ -28,11 +28,11 @@
 .sidebar-element {
     display: block;
     width: 100%;
-    padding: 0px 10px 10px 5px; /* top, right, bottom, left */
-    background-color: #f5f5f5; /* Set a default background color */
-    transition: background-color 0.3s; /* Add a transition for smooth color change */
-    text-decoration: none; /* Remove the underline */
-    color: #666; /* Change the color of the link */
+    padding: 10px 10px 10px 10px;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    color: #666;
 }
 
 .sidebar-element:hover {
