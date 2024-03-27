@@ -13,5 +13,8 @@ def login_view(request):
         else:
             return HttpResponse("Invalid username or password")
     else:
-        # Render the login form
+        # Render the lwogin form
         return render(request, 'site_login.html')
+    
+def about_view(request):
+    return render(request, 'site_about.html')

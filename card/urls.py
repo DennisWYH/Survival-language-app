@@ -7,7 +7,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("lang/<str:language>/", views.index, name="index"),
     path("lang/<str:language>/<int:card_id>/", views.detail, name="detail"),
-    path("about/", views.about, name="about"),
     path("<int:card_id>/update-answer/", views.update_answer, name="update_answer"),
 ]
 if settings.DEBUG:
