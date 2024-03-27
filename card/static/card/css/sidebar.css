@@ -1,6 +1,4 @@
 .sidebar {
-    position: fixed;
-    z-index: 1;
     top: 0;
     left: 0;
     height: 100%;
@@ -68,4 +66,19 @@
 
 .toggle-button:hover {
     background-color: #e0e0e0;
+}
+
+@media screen and (max-width: 767px) {
+    body .sidebar {
+        width: 80px;
+        overflow: hidden;
+    }
+
+    body .sidebar .link-text {
+        display: none;
+    }
+
+    body .sidebar .profile-username {
+        display: none;
+    }
 }

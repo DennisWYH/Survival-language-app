@@ -30,7 +30,7 @@ def index(request, language='nl'):
         for card in cards:
             card.user_answer = None
 
-    template = loader.get_template("card/card_index.html")
+    template = loader.get_template("card/card_index_flex.html")
     context = {
         "cards": cards,
         "language": language,
