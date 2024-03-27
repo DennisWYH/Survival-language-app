@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.card-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    max-height: 500px;
+}
+.card-form {
+    margin-top: 20px;
+}
+.form-group button {
+    margin-left: 10px;
+    background-color: #333; 
+    color: white;
+}
+
+.btn.btn-checked {
+    background-color: #29041e !important;
+    color: #a1187a !important;
+}
+
+.btn.btn-checked::after {
+    color: #a1187a !important;
+    content: " ✔";
+}
+
+.grade-dot {
+    display: inline-flex;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.grade-4 { background-color: green; }
+.grade-5 { background-color: #3271a8; }
+.grade-6a { background-color: black; }
+.grade-6a-plus { background-color: orange; }
+.grade-6b { background-color: yellow; }
+.grade-6b-plus { background-color: blue; }
+.grade-6c { background-color: red; }
+.grade-6c-plus { background-color: purple; }
+.grade-7a { background-color: white; }
+.grade-7a-plus { background-color: mediumaquamarine; }
