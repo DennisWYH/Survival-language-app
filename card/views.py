@@ -37,9 +37,6 @@ def index(request, language='nl'):
     }
     return HttpResponse(template.render(context, request))
 
-def about(request):
-    return render(request, "card/card_about.html")
-
 @csrf_exempt
 def detail(request, card_id, language=None):
     if request.method == 'GET':
