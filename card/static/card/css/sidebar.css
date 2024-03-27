@@ -38,10 +38,14 @@
     padding: 10px 10px 10px 10px;
 }
 
-/* .sidebar-profile {
-    width: 20px;
-    height: 20px;
-} */
+.profile-container {
+    display:flex;
+    align-items:center
+}
+.profile-image{
+    height: 50px;
+    width: 50px;
+}
 
 .sidebar-element:hover {
     background-color: #e0e0e0; /* Change the background color on hover */
