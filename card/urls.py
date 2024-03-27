@@ -3,17 +3,11 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
-app_name = "card"
 urlpatterns = [
-    # ex: /card
     path("", views.index, name="index"),
-    # ex: /card/en/
     path("lang/<str:language>/", views.index, name="index"),
-    # ex: /card/about
-    path("about/", views.about, name="about"),
-    # ex: /card/nl/3/
     path("lang/<str:language>/<int:card_id>/", views.detail, name="detail"),
-    # ex: /card/3/update-answer/
+    path("about/", views.about, name="about"),
     path("<int:card_id>/update-answer/", views.update_answer, name="update_answer"),
 ]
 if settings.DEBUG:
