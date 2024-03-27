@@ -18,14 +18,17 @@ class UserCardAnswerForm(forms.Form):
 
 def index(request, language='nl'):
     cards = Card.objects.filter(lan=language)
-    user_card_answers = UserCardAnswer.objects.filter(user=request.user)
+    if request.user.is_authenticated:
+        user_card_answers = UserCardAnswer.objects.filter(user=request.user)
+        user_answers = {uca.card.id: uca.answer for uca in user_card_answers}
 
-    user_answers = {uca.card.id: uca.answer for uca in user_card_answers}
+        # Add the user's answer to each card
+        for card in cards:
+            card.user_answer = user_answers.get(card.id)
 
-    # Add the user's answer to each card
-    for card in cards:
-        card.user_answer = user_answers.get(card.id)
-
+    else:
+        for card in cards:
+            card.user_answer = None
 
     template = loader.get_template("card/card_index.html")
     context = {
@@ -38,7 +41,6 @@ def about(request):
     return render(request, "card/card_about.html")
 
 @csrf_exempt
-@login_required
 def detail(request, card_id, language=None):
     if request.method == 'GET':
         try:
@@ -47,13 +49,14 @@ def detail(request, card_id, language=None):
             raise Http404("Card does not exist")
 
         form = UserCardAnswerForm()
-        try:
-            user_card_answer = UserCardAnswer.objects.get(user=request.user, card=card)
-        except UserCardAnswer.DoesNotExist:
-            user_card_answer = None
+        user_card_answer = None
+        if request.user.is_authenticated:
+            try:
+                user_card_answer = UserCardAnswer.objects.get(user=request.user, card=card)
+            except UserCardAnswer.DoesNotExist:
+                pass
 
         if language:
-            print("------ langeuage", language )
             previous_card = Card.objects.filter(pk__lt=card_id, lan=language).order_by('-id').first()
             next_card = Card.objects.filter(pk__gt=card_id, lan=language).order_by('id').first()
         else:
@@ -69,16 +72,6 @@ def detail(request, card_id, language=None):
             'next_card': next_card,
         }
         return HttpResponse(template.render(context, request))
-    
-    # if request.method == 'POST':
-    #     form = UserCardAnswerForm(request.POST)
-    #     if form.is_valid():
-    #         UserCardAnswer.objects.update_or_create(
-    #             user=request.user,
-    #             card=card,
-    #             defaults={'answer': form.cleaned_data['answer']}
-    #         )
-    #         return redirect('card_detail', card_id=card_id)
 
 @login_required
 def update_answer(request, card_id):
