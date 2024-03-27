@@ -1,16 +1,12 @@
 {% load static %}
 <div class="sidebar">
     <div class="sidebar-elements-container">
-        <p class="sidebar-profile">
-            {% if user.is_authenticated %}
-                <p>
-                    <img class="img-thumbnail rounded sidebar-profile" src="{% static './unicorn.png' %}" alt="profile">    
-                    {{ user.username }}
-                </p>
-            {% else %}
-                <p>Welcome, Guest</p>
-            {% endif %}
-        </p>
+        <div class="sidebar-element">
+            <div class="profile-container" style="display:flex;align-items:center">
+                <img style="height:50px; width: 50px;" class="img-thumbnail rounded" src="{% static './unicorn.png' %}" alt="profile">    
+                <span class="ml-2">{{ user.username }}</span>    
+            </div>
+        </div>
         <a class="sidebar-element sidebar-link" href="{% url 'user:profile'%}">
             <i class="fas fa-user mr-2"></i>
             <span class="link-text">View my profile</span>
