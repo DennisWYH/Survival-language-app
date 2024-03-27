@@ -38,10 +38,10 @@
     padding: 10px 10px 10px 10px;
 }
 
-.sidebar-profile {
+/* .sidebar-profile {
     width: 20px;
     height: 20px;
-}
+} */
 
 .sidebar-element:hover {
     background-color: #e0e0e0; /* Change the background color on hover */
