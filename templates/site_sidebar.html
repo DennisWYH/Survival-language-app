@@ -6,10 +6,10 @@
                 {% if user.is_authenticated %}
                     <!-- <img class="img-thumbnail rounded profile-image" src="{{ user.profile.profile_picture.url }}" alt="profile"> -->
                     <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
-                    <span class="ml-2">{{ user.username }}</span>    
+                    <span class="profile-username ml-2">{{ user.username }}</span>    
                 {% else %}
                     <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
-                    <span class="ml-2">Welcome guest user</span>    
+                    <span class="profile-username ml-2">Welcome guest user</span>    
                 {% endif %}
                 </div>
         </div>
