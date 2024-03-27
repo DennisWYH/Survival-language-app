@@ -113,11 +113,11 @@
         </div>
         <div class="navigation">
             {% if previous_card %}
-                <a href="{% url 'card:detail' language=previous_card.lan card_id=previous_card.id %}"
+                <a href="{% url 'detail' language=previous_card.lan card_id=previous_card.id %}"
                    class="btn btn-primary">Previous</a>
             {% endif %}
             {% if next_card %}
-                <a href="{% url 'card:detail' language=next_card.lan card_id=next_card.id %}"
+                <a href="{% url 'detail' language=next_card.lan card_id=next_card.id %}"
                    class="btn btn-primary">Next</a>
             {% endif %}
         </div>
