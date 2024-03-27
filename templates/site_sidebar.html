@@ -3,9 +3,15 @@
     <div class="sidebar-elements-container">
         <div class="sidebar-element">
             <div class="profile-container">
-                <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">    
-                <span class="ml-2">{{ user.username }}</span>    
-            </div>
+                {% if user.is_authenticated %}
+                    <!-- <img class="img-thumbnail rounded profile-image" src="{{ user.profile.profile_picture.url }}" alt="profile"> -->
+                    <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
+                    <span class="ml-2">{{ user.username }}</span>    
+                {% else %}
+                    <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
+                    <span class="ml-2">Welcome guest user</span>    
+                {% endif %}
+                </div>
         </div>
         <a class="sidebar-element sidebar-link" href="{% url 'user:profile'%}">
             <i class="fas fa-user mr-2"></i>
