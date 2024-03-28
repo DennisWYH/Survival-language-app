@@ -1,14 +1,6 @@
-.card-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    max-width: 500px;
-    max-height: 500px;
-}
 .card-form {
     margin-top: 20px;
-}
+} */
 .form-group button {
     margin-left: 10px;
     background-color: #333; 
@@ -25,6 +17,8 @@
     content: " ✔";
 }
 
+/* This is for the beautiful difficulty grade dot :) */
+/* TODO: might be a nice idea to make it bigger or make a shadow around it */
 .grade-dot {
     display: inline-flex;
     align-items: center;
@@ -34,7 +28,6 @@
     margin-right: 5px;
     margin-left: 5px;
 }
-
 .grade-4 { background-color: green; }
 .grade-5 { background-color: #3271a8; }
 .grade-6a { background-color: black; }

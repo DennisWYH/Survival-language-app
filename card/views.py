@@ -30,7 +30,7 @@ def index(request, language='nl'):
         for card in cards:
             card.user_answer = None
 
-    template = loader.get_template("card/card_index_flex.html")
+    template = loader.get_template("card/card_index.html")
     context = {
         "cards": cards,
         "language": language,
@@ -79,5 +79,5 @@ def update_answer(request, card_id):
         user_card_answer, created = UserCardAnswer.objects.update_or_create(
             user=request.user, card=card, defaults={'answer': answer}
         )
-        
+        print("------ update method called----")
         return JsonResponse({'status': 'success'})

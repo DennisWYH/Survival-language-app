@@ -15,9 +15,11 @@
               rel="stylesheet">
         <!-- Style sheets -->
         <link rel="stylesheet"
-              href="{% static 'card/css/container.css' %}">
+              href="{% static 'card/css/card_base.css' %}">
         <link rel="stylesheet"
               href="{% static 'card/css/sidebar.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'card/css/card_detail.css' %}">
         <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
               rel="stylesheet"
@@ -25,183 +27,188 @@
               crossorigin="anonymous">
     </head>
     <body>
-        {% include 'site_sidebar.html' %}
-        <div class="page-container">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <h2 class="card-title">About the Site</h2>
-                                <p class="card-text">
-                                    This site provides real-life foreign language materials sourced from everyday contexts. Unlike traditional tools that mechanically prompt you to recite new vocabulary or sentences, this platform offers real-life puzzles for you to solve, enhancing comprehension and enjoyment simultaneously.
-                                </p>
-                                <p class="card-text">
-                                    You might come across a job posting at a supermarket seeking more staff or a local municipality announcement informing you about new trash bins for kitchen waste disposal.
-                                </p>
-                                <p class="card-text">
-                                    I hold the belief that language learning becomes more engaging and meaningful when connected to real-life applications.
-                                </p>
+        <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
+            <div class="left-flex-container">
+                {% include 'site_sidebar.html' %}
+            </div>
+            <div class="right-flex-container mt-2" style="width: 100%; display:flex; justify-content: center;">
+                <div class="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="card mt-4">
+                                    <div class="card-body">
+                                        <h2 class="card-title">About the Site</h2>
+                                        <p class="card-text">
+                                            This site provides real-life foreign language materials sourced from everyday contexts. Unlike traditional tools that mechanically prompt you to recite new vocabulary or sentences, this platform offers real-life puzzles for you to solve, enhancing comprehension and enjoyment simultaneously.
+                                        </p>
+                                        <p class="card-text">
+                                            You might come across a job posting at a supermarket seeking more staff or a local municipality announcement informing you about new trash bins for kitchen waste disposal.
+                                        </p>
+                                        <p class="card-text">
+                                            I hold the belief that language learning becomes more engaging and meaningful when connected to real-life applications.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <h2 class="card-title">Flash/Done/Pass/Repeat</h2>
-                                <p class="card-text">These are concepts borrowed from climbing world.</p>
-                                <p class="card-text">
-                                    Flash, means that you understand the card problem on the first attemp without any additional help.
-                                </p>
-                                <p class="card-text">Done, means that you understand the card problem with some help from dictionary look up.</p>
-                                <p class="card-text">
-                                    Pass, means that the card is by any chance too difficulty for you and it's a hassle to look up all the words, so you don't want to work on it for the moment.
-                                </p>
-                                <p class="card-text">
-                                    Repeat, means that you've done the problem before, and now you're repeating the exercise for fun.
-                                </p>
+                    <div class="container mt-2">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="card mt-4">
+                                    <div class="card-body">
+                                        <h2 class="card-title">Flash/Done/Pass/Repeat</h2>
+                                        <p class="card-text">These are concepts borrowed from climbing world.</p>
+                                        <p class="card-text">
+                                            Flash, means that you understand the card problem on the first attemp without any additional help.
+                                        </p>
+                                        <p class="card-text">Done, means that you understand the card problem with some help from dictionary look up.</p>
+                                        <p class="card-text">
+                                            Pass, means that the card is by any chance too difficulty for you and it's a hassle to look up all the words, so you don't want to work on it for the moment.
+                                        </p>
+                                        <p class="card-text">
+                                            Repeat, means that you've done the problem before, and now you're repeating the exercise for fun.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="card mt-4">
-                            <h2>Grade Color Chart (higher number is more difficult)</h2>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Grade</th>
-                                        <th>Color</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>
-                                            <img src="{% static 'unicorn.png' %}"
-                                                 alt="Rainbow Unicorn"
-                                                 style="width: 20px;
-                                                        height: 20px">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>7a+</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: mediumaquamarine"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>7a</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: lightgrey"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6c+</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color:purple"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6c</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: red"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6b+</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: blue"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6b</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: yellow"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6a+</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: orange"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6a</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: black"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: #3271a8"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>
-                                            <div style="width: 20px;
-                                                        height: 20px;
-                                                        border-radius: 50%;
-                                                        background-color: green"></div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="container mt-2">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="card mt-4">
+                                    <h2>Grade Color Chart (higher number is more difficult)</h2>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Grade</th>
+                                                <th>Color</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>
+                                                    <img src="{% static 'unicorn.png' %}"
+                                                         alt="Rainbow Unicorn"
+                                                         style="width: 20px;
+                                                                height: 20px">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>7a+</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: mediumaquamarine"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>7a</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: lightgrey"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6c+</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color:purple"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6c</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: red"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6b+</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: blue"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6b</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: yellow"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6a+</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: orange"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>6a</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: black"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: #3271a8"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>
+                                                    <div style="width: 20px;
+                                                                height: 20px;
+                                                                border-radius: 50%;
+                                                                background-color: green"></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="container mt-5"></div>
+                </div>        
+            </div>  
         <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const gradeDots = document.querySelectorAll(".grade-dot");
-            gradeDots.forEach(dot => {
-                let grade = dot.parentElement.dataset.grade;
-                grade = grade.replace(/\+/g, '-plus');
-                dot.classList.add('grade-' + grade);
+            document.addEventListener("DOMContentLoaded", () => {
+                const gradeDots = document.querySelectorAll(".grade-dot");
+                gradeDots.forEach(dot => {
+                    let grade = dot.parentElement.dataset.grade;
+                    grade = grade.replace(/\+/g, '-plus');
+                    dot.classList.add('grade-' + grade);
+                });
             });
-        });
         </script>
         <!-- Bootstrap 5 JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-                crossorigin="anonymous"></script>
+                crossorigin="anonymous">
+        </script>
     </body>
 </html>
