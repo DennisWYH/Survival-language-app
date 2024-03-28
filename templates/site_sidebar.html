@@ -11,12 +11,20 @@
                     <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
                     <span class="profile-username ml-2">Welcome! Guest user</span>    
                 {% endif %}
-                </div>
+            </div>
         </div>
-        <a class="sidebar-element sidebar-link" href="{% url 'user:profile' %}">
-            <i class="fas fa-user mr-2"></i>
-            <span class="link-text">View my profile</span>
-        </a> 
+        {% if not user.is_authenticated %}
+            <a class="sidebar-element sidebar-link mt-3" href="{% url 'login' %}">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                <span class="link-text">Login/register</span>
+            </a>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a class="sidebar-element sidebar-link mt-3" href="{% url 'user:profile' %}">
+                <i class="fas fa-user mr-2"></i>
+                <span class="link-text">View my profile</span>  
+            </a> 
+        {% endif %}
         <a class="sidebar-element sidebar-link" href="{% url 'index' %}">
             <i class="fas fa-clone mr-2"></i>
             <span class="link-text">View all cards</span>
