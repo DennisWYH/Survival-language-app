@@ -79,5 +79,5 @@ def update_answer(request, card_id):
         user_card_answer, created = UserCardAnswer.objects.update_or_create(
             user=request.user, card=card, defaults={'answer': answer}
         )
-        
+        print("------ update method called----")
         return JsonResponse({'status': 'success'})
