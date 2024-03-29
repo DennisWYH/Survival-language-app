@@ -32,7 +32,7 @@
 .grade-5 { background-color: #3271a8; }
 .grade-6a { background-color: black; }
 .grade-6a-plus { background-color: orange; }
-.grade-6b { background-color: yellow; }
+.grade-6b { background-color: yellow; color: black !important }
 .grade-6b-plus { background-color: blue; }
 .grade-6c { background-color: red; }
 .grade-6c-plus { background-color: purple; }
