@@ -23,19 +23,10 @@
         </div>
         <div class="right-flex-container mt-5 ml-4" style="width: 100%;display:flex; justify-content: left;">
             <div class="site-border-style p-3" style="height:fit-content;">
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                      <label class="form-label" for="username">Username</label>
-                      <input class="form-control" type="text" id="username" name="username">
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-                <p>No account yet? <span><a href="{% url 'signup' %}">Sign up here</a></span></p>
+                <p>Learning progress</p>
+                <p>This is my current score: {{ score }}</p>
+                <footer class="blockquote-footer">Score calculating rule: only scores in the last 2 month takes into account</footer>
+                <footer class="blockquote-footer">Score is the average of the highest 10 exercises in the last 2 month</footer>
             </div>
         </div>
     </div>
