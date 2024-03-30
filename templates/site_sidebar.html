@@ -14,22 +14,26 @@
             </div>
         </div>
         {% if not user.is_authenticated %}
-            <a class="sidebar-element sidebar-link mt-3" href="{% url 'login' %}">
+            {% url 'login' as login_url %}
+            <a class="sidebar-element sidebar-link mt-3 {% if request.path == login_url %} active {% endif %} " href="{% url 'login' %}">
                 <i class="fas fa-sign-in-alt mr-2"></i>
                 <span class="link-text">Login/register</span>
             </a>
         {% endif %}
         {% if user.is_authenticated %}
-            <a class="sidebar-element sidebar-link mt-3" href="{% url 'user:profile' %}">
+            {% url 'user:profile' as profile_url %}
+            <a class="sidebar-element sidebar-link mt-3 {% if request.path == profile_url %}active{% endif %}" href="{% url 'user:profile' %}">
                 <i class="fas fa-user mr-2"></i>
                 <span class="link-text">View my profile</span>  
             </a> 
         {% endif %}
-        <a class="sidebar-element sidebar-link" href="{% url 'index' %}">
+        {% url 'index' as index_url %}
+        <a class="sidebar-element sidebar-link {% if request.path == index_url %}active{% endif %}" href="{% url 'index' %}">
             <i class="fas fa-clone mr-2"></i>
             <span class="link-text">View all cards</span>
         </a> 
-        <a class="sidebar-element sidebar-link" href="{% url 'about' %}">
+        {% url 'about' as about_url %}
+        <a class="sidebar-element sidebar-link {% if request.path == about_url %} active {% endif %}" href="{% url 'about' %}">
             <i class="fas fa-info-circle mr-2"></i>
             <span class="link-text">About the site</span>
         </a> 
