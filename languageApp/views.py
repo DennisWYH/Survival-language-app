@@ -5,9 +5,6 @@ from django.contrib.auth.models import User
 from user.models import UserProfile
 from card.models import UserCardAnswer
 from datetime import datetime, timedelta
-from matplotlib import pyplot as plt
-
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -61,7 +58,9 @@ def calculateCurrentScore(user):
     return averageScore
 
 def progress_view(request):
-    score = calculateCurrentScore(request.user)
+    if request.user.is_authenticated:
+        score = calculateCurrentScore(request.user)
+    else: score = 0
     return render(request, 'site_progress.html', {'score': score})
 
 def grade_to_score(grade):

@@ -6,6 +6,7 @@ from .models import Card, UserCardAnswer
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from user.models import UserProfile
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -17,6 +18,9 @@ class UserCardAnswerForm(forms.Form):
     answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
 def index(request, language='nl'):
+    if request.user.is_authenticated:
+        language = UserProfile.objects.get(user=request.user).target_lan
+
     cards = Card.objects.filter(lan=language)
     if request.user.is_authenticated:
         user_card_answers = UserCardAnswer.objects.filter(user=request.user)
@@ -73,7 +77,6 @@ def detail(request, card_id, language=None):
 @login_required
 def update_answer(request, card_id):
     if request.method == 'POST':
-        user = request.user
         answer = request.POST.get('answer')
         card = Card.objects.get(pk=card_id)
         user_card_answer, created = UserCardAnswer.objects.update_or_create(

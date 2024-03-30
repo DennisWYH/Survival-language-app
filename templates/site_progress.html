@@ -24,7 +24,11 @@
         <div class="right-flex-container mt-5 ml-4" style="width: 100%;display:flex; justify-content: left;">
             <div class="site-border-style p-3" style="height:fit-content;">
                 <p>Learning progress</p>
-                <p>This is my current score: {{ score }}</p>
+                {% if user.is_authenticated %}
+                    <p>This is my current score: {{ score }}</p>
+                {% else %}
+                    <p>You are a registered user yet.</p>
+                {% endif %}
                 <footer class="blockquote-footer">Score calculating rule: only scores in the last 2 month takes into account</footer>
                 <footer class="blockquote-footer">Score is the average of the highest 10 exercises in the last 2 month</footer>
             </div>
