@@ -43,5 +43,12 @@ class UserCardAnswer(models.Model):
     answer = models.CharField(max_length=2, choices=CARD_ANSWER_CHOICES)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"User: {self.user.username}\nCard ID: {self.card.id}\nAnswer: {self.get_answer_display()}\nTimestamp: {self.timestamp}\n"
     class Meta:
         unique_together = ('user', 'card',)
+
+class UserScore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    date = models.DateField()    
