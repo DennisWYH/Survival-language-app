@@ -3,3 +3,5 @@ media/
 card/__pycache__
 environment/
 *.pyc
+site screen shots/
+.DS_Store
