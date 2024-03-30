@@ -17,6 +17,7 @@
 
 </head>
 <body>
+    {% load static %}
     <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
         <div class="left-flex-container">
             {% include 'site_sidebar.html' %}
@@ -30,12 +31,19 @@
                       <input class="form-control" type="text" id="username" name="username">
                     </div>
                     <div class="mb-3">
+                        <label class="form-label" for="email">Email</label>
+                        <input class="form-control" type="text" id="email" name="email">
+                    </div>
+                    <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <input type="password" class="form-control" id="password" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-                <p>No account yet?<span><a href="{% url 'signup' %}">Sign up here</a></span></p>
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Repeat your password</label>
+                        <input type="password2" class="form-control" id="password2" name="password2">
+                    </div>
+                      <button type="submit" class="btn btn-primary">Signup</button>
+                </form>    
             </div>
         </div>
     </div>

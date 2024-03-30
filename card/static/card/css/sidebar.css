@@ -36,6 +36,14 @@
     text-decoration: none;
     color: #666;
 }
+.sidebar-element.active {
+    background-color: #ced4da;
+    text-decoration: none;
+}
+.sidebar-element:hover {
+    background-color: #ced4da;
+    text-decoration: none;
+}
 
 .sidebar-link {
     padding: 10px 10px 10px 10px;
@@ -48,11 +56,6 @@
 .profile-image{
     height: 50px;
     width: 50px;
-}
-
-.sidebar-element:hover {
-    background-color: #e0e0e0;
-    text-decoration: none;
 }
 
 .toggle-button {
