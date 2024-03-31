@@ -1,22 +1,25 @@
 .sidebar {
-    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
-    width: 200px;
+    height: 100vh;
+    width: 180px;
     background-color: #f5f5f5;
     overflow: auto;
     transition: width 0.1s;
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
-    text-decoration: none; /* Remove the underline */
+    text-decoration: none;
 }
 .sidebar.collapsed {
     width: 80px;
     overflow: hidden;
 }
 .sidebar.collapsed .link-text {
+    display: none;
+}
+.sidebar.collapsed .profile-username {
     display: none;
 }
 
@@ -28,16 +31,31 @@
 .sidebar-element {
     display: block;
     width: 100%;
-    padding: 0px 10px 10px 5px; /* top, right, bottom, left */
-    background-color: #f5f5f5; /* Set a default background color */
-    transition: background-color 0.3s; /* Add a transition for smooth color change */
-    text-decoration: none; /* Remove the underline */
-    color: #666; /* Change the color of the link */
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    color: #666;
+}
+.sidebar-element.active {
+    background-color: #ced4da;
+    text-decoration: none;
+}
+.sidebar-element:hover {
+    background-color: #ced4da;
+    text-decoration: none;
 }
 
-.sidebar-element:hover {
-    background-color: #e0e0e0; /* Change the background color on hover */
-    text-decoration: none;
+.sidebar-link {
+    padding: 10px 10px 10px 10px;
+}
+
+.profile-container {
+    display:flex;
+    align-items:center
+}
+.profile-image{
+    height: 50px;
+    width: 50px;
 }
 
 .toggle-button {
@@ -46,10 +64,25 @@
     width: 100%;
     padding: 10px;
     border: none;
-    background-color: #f5f5f5; /* Set a default background color */
-    transition: background-color 0.3s; /* Add a transition for smooth color change */
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
 }
 
 .toggle-button:hover {
-    background-color: #e0e0e0; /* Change the background color on hover */
+    background-color: #e0e0e0;
+}
+
+@media screen and (max-width: 767px) {
+    body .sidebar {
+        width: 80px;
+        overflow: hidden;
+    }
+
+    body .sidebar .link-text {
+        display: none;
+    }
+
+    body .sidebar .profile-username {
+        display: none;
+    }
 }
