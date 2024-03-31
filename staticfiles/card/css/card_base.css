@@ -1,0 +1,40 @@
+.card-form {
+    margin-top: 20px;
+} */
+.form-group button {
+    margin-left: 10px;
+}
+
+.btn.btn-checked {
+    background-color: #29041e !important;
+    color: #a1187a;
+    color: white!important;
+}
+
+.btn.btn-checked::after {
+    color: #a1187a;
+    color: white  !important;
+    content: " ✔";
+}
+
+/* This is for the beautiful difficulty grade dot :) */
+/* TODO: might be a nice idea to make it bigger or make a shadow around it */
+.grade-dot {
+    display: inline-flex;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.grade-4 { background-color: green; }
+.grade-5 { background-color: #3271a8; }
+.grade-6a { background-color: black; }
+.grade-6a-plus { background-color: orange; }
+.grade-6b { background-color: yellow; color: black !important }
+.grade-6b-plus { background-color: blue; }
+.grade-6c { background-color: red; }
+.grade-6c-plus { background-color: purple; }
+.grade-7a { background-color: white; }
+.grade-7a-plus { background-color: mediumaquamarine; }
