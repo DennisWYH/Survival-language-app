@@ -60,6 +60,8 @@ WSGI_APPLICATION = 'languageApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DEBUG = True
+DEVELOPMENT_MODE = True
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
@@ -68,6 +70,7 @@ if DEVELOPMENT_MODE is True:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+#DEVELOPMENT_MODE = os.getenv(“DEVELOPMENT_MODE”, “False”) == “True”
 
 if DEVELOPMENT_MODE is False:
     if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
