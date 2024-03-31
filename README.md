@@ -16,8 +16,12 @@ Add a brief description of your project here.
     cd <project-directory>
     ```
 3. Make sure that python3 is installed
+4. Create a vevn virtual environment for this project
+    ```
+    python -m venv ~./.venvs/languageApp
+    ```
 
-4. Install all project dependencies them using pip (ideally in a python virtual env):
+6. Install all project dependencies then using pip (ideally in a python virtual env):
 
     ```bash
     pip install -r requirements.txt
