@@ -12,8 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = os.getenv("DEBUG", "FALSE") == "TRUE"
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost").split(",")
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "FALSE") == "TRUE"
-
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 INSTALLED_APPS = [
     'user.apps.UserConfig',
@@ -60,8 +59,7 @@ WSGI_APPLICATION = 'languageApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DEBUG = True
-DEVELOPMENT_MODE = True
+# DEVELOPMENT_MODE = True
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
@@ -70,7 +68,6 @@ if DEVELOPMENT_MODE is True:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-#DEVELOPMENT_MODE = os.getenv(“DEVELOPMENT_MODE”, “False”) == “True”
 
 if DEVELOPMENT_MODE is False:
     if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
