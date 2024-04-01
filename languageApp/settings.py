@@ -58,7 +58,9 @@ WSGI_APPLICATION = 'languageApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Set these to true for development mode
 # DEVELOPMENT_MODE = True
+# DEBUG = True
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
@@ -129,11 +131,11 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = 'images'
 if DEVELOPMENT_MODE is True:
-    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-    MEDIA_ROOT = MEDIA_URL
-else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+    MEDIA_ROOT = MEDIA_URL
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
