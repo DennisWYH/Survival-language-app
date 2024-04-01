@@ -58,6 +58,8 @@ WSGI_APPLICATION = 'languageApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+# We can flip this to use sqlite for development :)
 # DEVELOPMENT_MODE = True
 
 if DEVELOPMENT_MODE is True:
@@ -111,7 +113,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # for files that doesn't belong to specific app
 STATICFILES_DIRS = [
