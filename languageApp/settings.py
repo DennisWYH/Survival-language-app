@@ -118,8 +118,22 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "languageApp", "static"),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Setting up Digital ocean object storage space for the media files
+# It uses S3 protocol
+AWS_ACCESS_KEY_ID = 'DO00HU78UG6GDDQEBGF7'
+AWS_SECRET_ACCESS_KEY = 'fvpa1h23MGS5gP3c2XWEvtFb5miIC0v80NqfRuQCJoo'
+AWS_STORAGE_BUCKET_NAME = 'languageappmediakey'
+AWS_S3_ENDPOINT_URL = 'https://languagereference.ams3.digitaloceanspaces.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'images'
+if DEVELOPMENT_MODE is True:
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+    MEDIA_ROOT = MEDIA_URL
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
