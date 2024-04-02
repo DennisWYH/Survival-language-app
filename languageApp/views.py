@@ -51,6 +51,7 @@ def about_view(request):
     return render(request, 'site_about.html')
 
 def calculateCurrentScore(user):
+    # TODO: Need to calculatethe score based on the language selection
     two_months_ago = datetime.now() - timedelta(days=60)
     answers = UserCardAnswer.objects.filter(user=user, timestamp__gte=two_months_ago)
     scores = sorted([grade_to_score(answer.card.grade) for answer in answers], reverse=True)[:10]
