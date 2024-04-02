@@ -11,3 +11,7 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+    def get_target_lan_display(self):
+        LAN_ORIGIN_CHOICES_DICT = dict(Card.LAN_ORIGIN_CHOICES)
+        return LAN_ORIGIN_CHOICES_DICT.get(self.target_lan, '')
