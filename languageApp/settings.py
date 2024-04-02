@@ -133,11 +133,13 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = 'media'
 
 if DEVELOPMENT_MODE is True:
+    print("---- using local media filesytem for media files ----")
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
+    print("---- using digital ocean spaces for media files ----")
     MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-    DEFAULT_FILE_STORAGE = 'django_project.storage_backends.MediaStorage'
+    DEFAULT_FILE_STORAGE = 'languageApp.storage_backends.MediaStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
