@@ -4,4 +4,5 @@ environment/
 *.pyc
 site screen shots/
 .DS_Store
-runserver.sh    
+runserver.sh
+db.sqlite3
