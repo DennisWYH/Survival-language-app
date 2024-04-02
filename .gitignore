@@ -4,4 +4,4 @@ environment/
 *.pyc
 site screen shots/
 .DS_Store
-languageApp/management/commands/runserver_with_envs.py
+runserver.sh    

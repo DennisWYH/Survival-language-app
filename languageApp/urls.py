@@ -13,4 +13,7 @@ urlpatterns = [
     path('progress/', progress_view, name='progress'),
     path("about/", about_view, name="about"),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:  # only serve media files in development
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

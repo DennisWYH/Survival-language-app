@@ -10,9 +10,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Deployment settings following instruction from Digital Occean:
 # see https://docs.digitalocean.com/developer-center/deploy-a-django-app-on-app-platform/
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-DEBUG = os.getenv("DEBUG", "FALSE") == "TRUE"
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost").split(",")
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+DEBUG = os.getenv("DEBUG", "FALSE") == "True"
 
 INSTALLED_APPS = [
     'user.apps.UserConfig',
@@ -59,7 +59,6 @@ WSGI_APPLICATION = 'languageApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# We can flip this to use sqlite for development :)
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         'default': {
@@ -67,8 +66,7 @@ if DEVELOPMENT_MODE is True:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-if DEVELOPMENT_MODE is False:
+else:
     if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
         if os.getenv("DATABASE_URL", None) is None:
             raise Exception("DATABASE_URL environment variable not defined")
@@ -106,7 +104,6 @@ TIME_ZONE = 'Europe/Amsterdam'
 USE_I18N = False
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
