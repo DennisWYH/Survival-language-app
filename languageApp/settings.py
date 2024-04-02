@@ -130,13 +130,14 @@ AWS_S3_ENDPOINT_URL = 'https://languagereference.ams3.digitaloceanspaces.com'
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'images'
+AWS_LOCATION = 'media'
+
 if DEVELOPMENT_MODE is True:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
     MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-    MEDIA_ROOT = "storages.backends.s3boto3.S3Boto3Storage"
+    DEFAULT_FILE_STORAGE = 'django_project.storage_backends.MediaStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
