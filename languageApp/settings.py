@@ -60,9 +60,6 @@ WSGI_APPLICATION = 'languageApp.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # We can flip this to use sqlite for development :)
-DEVELOPMENT_MODE = True
-DEBUG = True
-
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         'default': {
