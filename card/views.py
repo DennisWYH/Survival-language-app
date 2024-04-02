@@ -18,8 +18,10 @@ class UserCardAnswerForm(forms.Form):
     answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
 def index(request, language='nl'):
+    print("------ index method called----, default langugage is", language)
     if request.user.is_authenticated:
         language = UserProfile.objects.get(user=request.user).target_lan
+        print("------ user logged in----, lan preference is", language)
 
     cards = Card.objects.filter(lan=language)
     if request.user.is_authenticated:

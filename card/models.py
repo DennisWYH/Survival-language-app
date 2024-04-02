@@ -30,6 +30,18 @@ class Card(models.Model):
     upload_by_userName = models.CharField(max_length=30, default='')
     def __str__(self):
         return self.image.name
+    
+    def get_language_code(lan_name):
+        LAN_ORIGIN_CHOICES = [
+            ("nl", "Dutch"),
+            ("en", "English"),
+            ("cn", "Chinese"),
+            ("it", "Italian"),
+        ]
+        for code, name in LAN_ORIGIN_CHOICES:
+            if name.lower() == lan_name.lower():
+                return code
+        return None
 
 class UserCardAnswer(models.Model):
     CARD_ANSWER_CHOICES = [
