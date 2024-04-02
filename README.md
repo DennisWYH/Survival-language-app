@@ -20,7 +20,10 @@ Add a brief description of your project here.
     ```
     python -m venv ~./.venvs/languageApp
     ```
-
+5. Start the virtual env
+    ```
+    source ~./.venvs/languageApp/bin/activate
+    ```
 6. Install all project dependencies then using pip (ideally in a python virtual env):
 
     ```bash
