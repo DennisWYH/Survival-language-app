@@ -22,25 +22,18 @@ $ pip install -r requirements.txt
 ## Running the Application
 1. Export DEBUG = True
 2. Export DEVELOPMENT_MODE = True
-
 3. Start the local development server:
-
-    ```bash
-    python manage.py runserver
-    ```
-
+```bash
+$ python manage.py runserver
+```
 4. If prompted to perform database migrations, run:
-
-    ```bash
-    python manage.py migrate
-    ```
-
+```bash
+$ python manage.py migrate
+```
 5. Create an admin user for testing:
-
-    ```bash
-    python manage.py createsuperuser
-    ```
-
+```bash
+$ python manage.py createsuperuser
+```
 6. Visit `localhost:8000/admin` in your web browser to check out the admin url endpoints.
 
 7. Visit `localhost:8000/card` in your web browser to test out the customer url endpoints.
