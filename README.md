@@ -1,30 +1,26 @@
-# Project Name
+👉 Project Name
 
-Add a brief description of your project here.
-
+Language learning app with real-life reading & listening materials.
 ## Installation
 
-1. Clone the repository locally:
-
+👉 Clone the repository locally:
+> clone the repo with git
     ```bash
     git@github.com:DennisWYH/survival-language-app.git
     ```
 
-2. Navigate to the project directory:
+👉 Navigate to the project directory:
 
     ```bash
     cd <project-directory>
     ```
-3. Make sure that python3 is installed
-4. Create a vevn virtual environment for this project
+👉 Make sure that python3 is installed
+👉 Create a vevn virtual environment for this project and start it
+    ```bash
+    $ python -m venv ~./.venvs/languageApp
+    $ source ~./.venvs/languageApp/bin/activate
     ```
-    python -m venv ~./.venvs/languageApp
-    ```
-5. Start the virtual env
-    ```
-    source ~./.venvs/languageApp/bin/activate
-    ```
-6. Install all project dependencies then using pip (ideally in a python virtual env):
+👉 Install all project dependencies then using pip (ideally in a python virtual env):
 
     ```bash
     pip install -r requirements.txt
