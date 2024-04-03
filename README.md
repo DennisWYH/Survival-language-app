@@ -1,6 +1,5 @@
 # Project Name
-
-Add a brief description of your project here.
+A language app teaches language with real life materials
 
 ## Installation
 
