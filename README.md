@@ -11,11 +11,13 @@ Add a brief description of your project here.
     cd languageApp
     ```
 👉 Make sure that python3 is installed
+
 👉 Create a vevn virtual environment and start it 
     ```bash
     python -m venv ~./.venvs/languageApp
     source ~./.venvs/languageApp/bin/activate
     ```
+    
 👉 Install all project dependencies then using pip (ideally in a python virtual env):
 
     ```bash
