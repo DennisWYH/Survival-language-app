@@ -4,27 +4,19 @@ Add a brief description of your project here.
 
 ## Installation
 
-1. Clone the repository locally:
+👉 Clone the repository locally:
 
     ```bash
-    git@github.com:DennisWYH/survival-language-app.git
+    git@github.com:DennisWYH/languageApp.git
+    cd languageApp
     ```
-
-2. Navigate to the project directory:
-
+👉 Make sure that python3 is installed
+👉 Create a vevn virtual environment and start it 
     ```bash
-    cd <project-directory>
-    ```
-3. Make sure that python3 is installed
-4. Create a vevn virtual environment for this project
-    ```
     python -m venv ~./.venvs/languageApp
-    ```
-5. Start the virtual env
-    ```
     source ~./.venvs/languageApp/bin/activate
     ```
-6. Install all project dependencies then using pip (ideally in a python virtual env):
+👉 Install all project dependencies then using pip (ideally in a python virtual env):
 
     ```bash
     pip install -r requirements.txt
