@@ -17,6 +17,7 @@ DEBUG = os.getenv("DEBUG", "FALSE") == "True"
 INSTALLED_APPS = [
     'user.apps.UserConfig',
     'card.apps.CardConfig',
+    'translator.apps.TranslatorConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

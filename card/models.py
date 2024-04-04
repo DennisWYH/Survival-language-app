@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from nltk.tokenize import word_tokenize
-from translator.models import TextTranslator
-from deep_translator import GoogleTranslator, NotValidPayload, NotValidLanguage
+from django.db.models.signals import post_save
+from django.apps import apps
+from django.dispatch import receiver
+
 
 class Card(models.Model):
     LAN_ORIGIN_CHOICES = [
@@ -24,17 +25,22 @@ class Card(models.Model):
         ("5", "LightBlue"),
         ("4", "Green"),
     ]
-    comment = models.CharField("comment", max_length=500, default='', blank=True)
-    image = models.ImageField("image of the card", upload_to="card", default='')
-    lan = models.CharField("language", max_length=2, choices=LAN_ORIGIN_CHOICES, default='')
-    grade = models.CharField("grade", max_length=3, choices=GRADE_CHOICES, default='')
-    text = models.CharField("text extration of the image", max_length=500, default='', blank=True)
+    comment = models.CharField("comment", max_length=500, default="", blank=True)
+    image = models.ImageField("image of the card", upload_to="card", default="")
+    lan = models.CharField(
+        "language", max_length=2, choices=LAN_ORIGIN_CHOICES, default=""
+    )
+    grade = models.CharField("grade", max_length=3, choices=GRADE_CHOICES, default="")
+    text = models.CharField(
+        "text extration of the image", max_length=500, default="", blank=True
+    )
     creation_date = models.DateTimeField("date created")
     modification_date = models.DateTimeField("date modified", blank=True)
-    upload_by_userName = models.CharField(max_length=30, default='')
+    upload_by_userName = models.CharField(max_length=30, default="")
+
     def __str__(self):
         return self.image.name
-    
+
     def get_language_code(lan_name):
         LAN_ORIGIN_CHOICES = [
             ("nl", "Dutch"),
@@ -49,20 +55,14 @@ class Card(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        tokens = word_tokenize(self.text)
-        try:
-            enTrans = GoogleTranslator(source='nl', target='en').translate(self.text)
-            translator = TextTranslator(card=self, translated_text=enTrans, tokens=tokens)
-            translator.save()
-        except (NotValidPayload, NotValidLanguage) as e:
-            print(f"Translation error: {e}")
-            pass
+
+
 class UserCardAnswer(models.Model):
     CARD_ANSWER_CHOICES = [
         ("FL", "flash"),
         ("DN", "done"),
         ("PA", "pass"),
-        ("RE", "repeat")
+        ("RE", "repeat"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
@@ -71,10 +71,22 @@ class UserCardAnswer(models.Model):
 
     def __str__(self):
         return f"User: {self.user.username}\nCard ID: {self.card.id}\nAnswer: {self.get_answer_display()}\nTimestamp: {self.timestamp}\n"
+
     class Meta:
-        unique_together = ('user', 'card',)
+        unique_together = (
+            "user",
+            "card",
+        )
+
 
 class UserScore(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
-    date = models.DateField()    
+    date = models.DateField()
+
+
+@receiver(post_save, sender=Card)
+def create_text_translator(sender, instance, created, **kwargs):
+    if created:
+        TextTranslator = apps.get_model("translator", "TextTranslator")
+        TextTranslator.objects.create(card=instance)
