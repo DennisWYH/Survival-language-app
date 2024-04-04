@@ -17,6 +17,7 @@ def loginHandler(request):
                 # User might try to login with email
                 user = User.objects.get(email=username)
                 if user.check_password(password):
+                    request.session["user_id"] = user.id
                     login(request, user)
                     return redirect('/user')
                 else:
@@ -24,6 +25,7 @@ def loginHandler(request):
             except User.DoesNotExist:
                 return render(request, 'site_login.html', {'error_message': "User not registered   "})
         else:
+            request.session["user_id"] = user.id
             login(request, user)
             return redirect('/user')
     else:
@@ -67,6 +69,10 @@ def signupHandler(request):
 
 def logoutHandler(request):
     logout(request)
+    try:
+        del request.session["user_id"]
+    except KeyError:
+        pass
     return redirect('/')
 
 def aboutHandler(request):
