@@ -6,7 +6,7 @@ from user.models import UserProfile
 from card.models import UserCardAnswer
 from datetime import datetime, timedelta
 
-def login_view(request):
+def loginHandler(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -25,7 +25,7 @@ def login_view(request):
         # Render the login form
         return render(request, 'site_login.html')
 
-def user_signup(request):
+def signupHandler(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
@@ -48,11 +48,11 @@ def user_signup(request):
     else:
         return render(request, 'site_signup.html')
 
-def user_logout(request):
+def logoutHandler(request):
     logout(request)
     return redirect('/')
 
-def about_view(request):
+def aboutHandler(request):
     return render(request, 'site_about.html')
 
 def calculateCurrentScore(user):
@@ -63,7 +63,7 @@ def calculateCurrentScore(user):
     averageScore = sum(scores)/len(scores) if scores else 0
     return averageScore
 
-def progress_view(request):
+def progressHandler(request):
     if request.user.is_authenticated:
         score = calculateCurrentScore(request.user)
     else: score = 0

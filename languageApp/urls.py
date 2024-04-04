@@ -2,16 +2,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import login_view, about_view, user_signup, user_logout, progress_view
+from .views import loginHandler, aboutHandler, signupHandler, logoutHandler, progressHandler
 
 urlpatterns = [
     path("", include("card.urls")),
-    path("login/", login_view, name="login"),
-    path('signup/', user_signup, name='signup'),
-    path('logout/', user_logout, name='logout'),
+    path("login/", loginHandler, name="login"),
+    path('signup/', signupHandler, name='signup'),
+    path('logout/', logoutHandler, name='logout'),
     path("user/", include('user.urls')),
-    path('progress/', progress_view, name='progress'),
-    path("about/", about_view, name="about"),
+    path('progress/', progressHandler, name='progress'),
+    path("about/", aboutHandler, name="about"),
     path('admin/', admin.site.urls),
 ]
 
