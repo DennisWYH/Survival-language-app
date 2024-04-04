@@ -6,3 +6,5 @@ site screen shots/
 .DS_Store
 runserver.sh
 db.sqlite3
+makemigrations.sh
+migrate.sh

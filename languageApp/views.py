@@ -6,53 +6,66 @@ from user.models import UserProfile
 from card.models import UserCardAnswer
 from datetime import datetime, timedelta
 
-def login_view(request):
+def loginHandler(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is None:
-            user = User.objects.get(email=username)
-            if user.check_password(password):
-                login(request, user)
-                return redirect('/')
-        elif user is not None:
-            login(request, user)
-            return redirect('/')
+            try:
+                # User might try to login with email
+                user = User.objects.get(email=username)
+                if user.check_password(password):
+                    login(request, user)
+                    return redirect('/user')
+                else:
+                    return render(request, 'site_login.html', {'error_message': "Invalid username or password"})
+            except User.DoesNotExist:
+                return render(request, 'site_login.html', {'error_message': "User not registered   "})
         else:
-            return HttpResponse("Invalid username or password", status=401)
+            login(request, user)
+            return redirect('/user')
     else:
         # Render the login form
         return render(request, 'site_login.html')
 
-def user_signup(request):
+def signupHandler(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
 
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/')
-        else:
-            if password == password2:
-                 user = User.objects.create_user(username=username, password=password)
-                 user.save()
-
-                 userProfile = UserProfile.objects.create(user=user, email=email, target_lan='nl', grade=4, night_mode=False)
-                 userProfile.save()
+        try:
+            user = User.objects.get(username=username)
+            # if user does exist already, try to login
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                # authenticated, login
+                login(request, user)
+                return redirect('/user')
             else:
-                return HttpResponse("password does not match")
+                # not authenticated, return error
+                return render(request, 'site_signup.html', {'error_message': "Username taken, please choose a new one."})
+        except:
+            # if user does not exist, create user
+            if password != password2:
+                return render(request, 'site_signup.html', {'error_message': "Password does not match."})
+            else:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                userProfile = UserProfile.objects.create(user=user, email=email, target_lan='nl', grade=4, night_mode=False)
+                userProfile.save()
+                login(request, user)
+                return redirect('/user')
     else:
         return render(request, 'site_signup.html')
 
-def user_logout(request):
+def logoutHandler(request):
     logout(request)
     return redirect('/')
 
-def about_view(request):
+def aboutHandler(request):
     return render(request, 'site_about.html')
 
 def calculateCurrentScore(user):
@@ -63,7 +76,7 @@ def calculateCurrentScore(user):
     averageScore = sum(scores)/len(scores) if scores else 0
     return averageScore
 
-def progress_view(request):
+def progressHandler(request):
     if request.user.is_authenticated:
         score = calculateCurrentScore(request.user)
     else: score = 0
