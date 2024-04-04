@@ -11,11 +11,16 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+        if user is None:
+            user = User.objects.get(email=username)
+            if user.check_password(password):
+                login(request, user)
+                return redirect('/')
+        elif user is not None:
             login(request, user)
             return redirect('/')
         else:
-            return HttpResponse("Invalid username or password")
+            return HttpResponse("Invalid username or password", status=401)
     else:
         # Render the login form
         return render(request, 'site_login.html')
