@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from user.models import UserProfile
 from card.models import UserCardAnswer
 from datetime import datetime, timedelta
+from card.models import Card
 
 def loginHandler(request):
     if request.method == 'POST':
@@ -29,9 +30,11 @@ def loginHandler(request):
         # Render the login form
         return render(request, 'site_login.html')
 
+INITIAL_GRADE = 4
 def signupHandler(request):
     if request.method == 'POST':
         username = request.POST['username']
+        language = request.POST['language']
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
@@ -54,12 +57,13 @@ def signupHandler(request):
             else:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
-                userProfile = UserProfile.objects.create(user=user, email=email, target_lan='nl', grade=4, night_mode=False)
+                userProfile = UserProfile.objects.create(user=user, email=email, target_lan=language, grade=INITIAL_GRADE, night_mode=False)
                 userProfile.save()
                 login(request, user)
                 return redirect('/user')
     else:
-        return render(request, 'site_signup.html')
+        lan_choices = Card.LAN_ORIGIN_CHOICES
+        return render(request, 'site_signup.html', {'lan_choices': lan_choices})
 
 def logoutHandler(request):
     logout(request)

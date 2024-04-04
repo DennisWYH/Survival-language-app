@@ -34,6 +34,15 @@
                       <input class="form-control" type="text" id="username" name="username">
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">What language do you want to learn?</label>
+                        <!-- I would like to make use of such dropdown button to replace the input button above, how do I do that? -->
+                        <select class="form-control" id="language" name="language">
+                            {% for lan, language in lan_choices %}
+                                <option value="{{ lan }}">{{ language }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label" for="email">Email</label>
                         <input class="form-control" type="text" id="email" name="email">
                     </div>
