@@ -8,3 +8,4 @@ runserver.sh
 db.sqlite3
 makemigrations.sh
 migrate.sh
+createsuperuser.sh
