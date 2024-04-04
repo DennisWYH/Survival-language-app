@@ -21,6 +21,7 @@ class Card(models.Model):
         ("5", "LightBlue"),
         ("4", "Green"),
     ]
+    comment = models.CharField("comment", max_length=500, default='', blank=True)
     image = models.ImageField("image of the card", upload_to="card", default='')
     lan = models.CharField("language", max_length=2, choices=LAN_ORIGIN_CHOICES, default='')
     grade = models.CharField("grade", max_length=3, choices=GRADE_CHOICES, default='')
