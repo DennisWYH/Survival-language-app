@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from nltk.tokenize import word_tokenize
+from translator.models import TextTranslator
+from deep_translator import GoogleTranslator, NotValidPayload, NotValidLanguage
 
 class Card(models.Model):
     LAN_ORIGIN_CHOICES = [
@@ -44,6 +47,16 @@ class Card(models.Model):
                 return code
         return None
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        tokens = word_tokenize(self.text)
+        try:
+            enTrans = GoogleTranslator(source='nl', target='en').translate(self.text)
+            translator = TextTranslator(card=self, translated_text=enTrans, tokens=tokens)
+            translator.save()
+        except (NotValidPayload, NotValidLanguage) as e:
+            print(f"Translation error: {e}")
+            pass
 class UserCardAnswer(models.Model):
     CARD_ANSWER_CHOICES = [
         ("FL", "flash"),
