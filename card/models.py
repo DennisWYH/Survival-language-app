@@ -87,6 +87,6 @@ class UserScore(models.Model):
 
 @receiver(post_save, sender=Card)
 def create_text_translator(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.lan == "nl":
         TextTranslator = apps.get_model("translator", "TextTranslator")
         TextTranslator.objects.create(card=instance)
