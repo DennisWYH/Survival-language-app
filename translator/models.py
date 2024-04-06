@@ -13,18 +13,16 @@ class TextTranslator(models.Model):
     tokens = JSONField(default=list, blank=True)
     tokens_translated = JSONField(default=list, blank=True)
 
-    def __str__(self):
-        return self.card.image.name
 
-    def save(self, *args, **kwargs):
-        sourceLan = self.card.lan
-        defaultTargetLan = "en"
+    def populateTranslationForDutch(self):
+        sourceLan = "nl"
+        targetLan = "en"
         if not self.tokens:
             self.tokens = word_tokenize(self.card.text)
         if not self.translated_text:
             try:
                 enTrans = GoogleTranslator(
-                    source=sourceLan, target=defaultTargetLan
+                    source=sourceLan, target=targetLan
                 ).translate(self.card.text)
                 self.translated_text = enTrans
             except Exception as e:
@@ -34,9 +32,18 @@ class TextTranslator(models.Model):
             for token in self.tokens:
                 try:
                     translated_token = GoogleTranslator(
-                        source=sourceLan, target=defaultTargetLan
+                        source=sourceLan, target=targetLan
                     ).translate(token)
                     self.tokens_translated.append(translated_token)
                 except Exception as e:
                     print(f"Translation error: {e}")
+
+    def __str__(self):
+        return self.card.image.name
+
+    def save(self, *args, **kwargs):
+        sourceLan = self.card.lan
+        if sourceLan == "nl":
+            self.populateTranslationForDutch()
         super().save(*args, **kwargs)
+        
