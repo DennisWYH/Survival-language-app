@@ -28,6 +28,7 @@
               href="{% static 'card/css/card_base.css' %}">
     </head>
     <body>
+        {% load my_filters %}
         <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
             <div class="left-flex-container">
                 {% include 'site_sidebar.html' %}
@@ -42,9 +43,13 @@
                     <div class="card" style="background-color:#edf1f7;">
                         <div class="card-body">
                           <h5 class="card-title">Reading:</h5>
-                          <p class="card-text">{{ card.text }}</p>
-                          <span id="grade-badge" data-grade="{{ card.grade }}" class="badge grade-badge rounded-pill">{{card.grade}}</span>
-                    
+                          <p class="card-text">
+                            {% for token, translated_token in tokens|zip_lists:tokens_translated %}
+                                <span title="{{ translated_token }}">{{ token }}</span>
+                            {% endfor %}
+                        </p>
+                        <span id="grade-badge" data-grade="{{ card.grade }}" class="badge grade-badge rounded-pill">{{card.grade}}</span>
+
                           <form method="post" class="card-form">
                             {% csrf_token %}
                             <div class="form-group">

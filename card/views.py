@@ -5,8 +5,8 @@ from django.http import Http404
 from .models import Card, UserCardAnswer
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
 from user.models import UserProfile
+from translator.models import TextTranslator
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -18,10 +18,8 @@ class UserCardAnswerForm(forms.Form):
     answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
 def index(request, language='nl'):
-    print("------ index method called----, default langugage is", language)
     if request.user.is_authenticated:
         language = UserProfile.objects.get(user=request.user).target_lan
-        print("------ user logged in----, lan preference is", language)
 
     cards = Card.objects.filter(lan=language)
     if request.user.is_authenticated:
@@ -48,6 +46,7 @@ def detail(request, card_id, language=None):
     if request.method == 'GET':
         try:
             card = Card.objects.get(pk=card_id)
+            translator = TextTranslator.objects.get(card=card)
         except Card.DoesNotExist:
             raise Http404("Card does not exist")
 
@@ -73,6 +72,8 @@ def detail(request, card_id, language=None):
             'user_card_answer': user_card_answer,
             'previous_card': previous_card,
             'next_card': next_card,
+            'tokens': translator.tokens,
+            'tokens_translated': translator.tokens_translated,
         }
         return HttpResponse(template.render(context, request))
 
