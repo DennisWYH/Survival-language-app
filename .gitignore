@@ -4,8 +4,5 @@ environment/
 *.pyc
 site screen shots/
 .DS_Store
-runserver.sh
 db.sqlite3
-makemigrations.sh
-migrate.sh
-createsuperuser.sh
+manage.sh
