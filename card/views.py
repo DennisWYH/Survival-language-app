@@ -10,9 +10,9 @@ from translator.models import TextTranslator
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
-        ("FL", "FLASH means understand the whole text without any help"),
-        ("DN", "DONE means understand the text with help from dictionary"),
-        ("PA", "PASS means it's still too hard for you, leave it for now"),
+        ("FL", "FLASH"),
+        ("DN", "DONE"),
+        ("PA", "PASS"),
     ]
     answer = forms.ChoiceField(choices=CARD_ANSWER_CHOICES, widget=forms.RadioSelect)
 
