@@ -57,7 +57,6 @@ class UserCardAnswer(models.Model):
         ("FL", "flash"),
         ("DN", "done"),
         ("PA", "pass"),
-        ("RE", "repeat"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
