@@ -1,15 +1,13 @@
 from django.contrib import admin
 from .models import TextTranslator
 
+
 class TextTranslatorAdmin(admin.ModelAdmin):
-    def change_view(self, request, object_id, form_url="", extra_context=None):
-        # Get the object instance
-        obj = TextTranslator.objects.get(pk=object_id)
-        # Pass the instance to the template context
-        extra_context = extra_context or {}
-        extra_context["instance"] = obj
-        return super().change_view(
-            request, object_id, form_url, extra_context=extra_context
-        )
+    fields = ["card", "translated_text", "tokens", "tokens_translated"]
+    list_display = ["card", "card_modification_date", "translated_text", "tokens", "tokens_translated"]
+
+    def card_modification_date(self, obj):
+        return obj.card.modification_date
+    card_modification_date.short_description = 'Card Modification Date'
 
 admin.site.register(TextTranslator, TextTranslatorAdmin)
