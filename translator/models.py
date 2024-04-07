@@ -14,8 +14,7 @@ class TextTranslator(models.Model):
     tokens_translated = JSONField(default=list, blank=True)
 
 
-    def populateTranslationForDutch(self):
-        sourceLan = "nl"
+    def populateTranslationForDutch(self, sourceLan):
         targetLan = "en"
         if not self.tokens:
             self.tokens = word_tokenize(self.card.text)
@@ -43,7 +42,7 @@ class TextTranslator(models.Model):
 
     def save(self, *args, **kwargs):
         sourceLan = self.card.lan
-        if sourceLan == "nl":
-            self.populateTranslationForDutch()
+        if sourceLan == "nl" or sourceLan == "fr":
+            self.populateTranslationForDutch(sourceLan)
         super().save(*args, **kwargs)
         

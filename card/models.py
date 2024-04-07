@@ -11,6 +11,7 @@ class Card(models.Model):
         ("en", "English"),
         ("cn", "Chinese"),
         ("it", "Italian"),
+        ("fr", "French")
     ]
     GRADE_CHOICES = [
         ("8", "rainbow"),
@@ -41,14 +42,8 @@ class Card(models.Model):
     def __str__(self):
         return self.image.name
 
-    def get_language_code(lan_name):
-        LAN_ORIGIN_CHOICES = [
-            ("nl", "Dutch"),
-            ("en", "English"),
-            ("cn", "Chinese"),
-            ("it", "Italian"),
-        ]
-        for code, name in LAN_ORIGIN_CHOICES:
+    def get_language_code(self, lan_name):
+        for code, name in self.LAN_ORIGIN_CHOICES:
             if name.lower() == lan_name.lower():
                 return code
         return None
@@ -87,6 +82,6 @@ class UserScore(models.Model):
 
 @receiver(post_save, sender=Card)
 def create_text_translator(sender, instance, created, **kwargs):
-    if created and instance.lan == "nl":
+    if created and (instance.lan == "nl" or instance.lan == "fr"):
         TextTranslator = apps.get_model("translator", "TextTranslator")
         TextTranslator.objects.create(card=instance)
