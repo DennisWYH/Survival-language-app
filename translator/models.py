@@ -35,14 +35,14 @@ class TextTranslator(models.Model):
                     ).translate(token)
                     self.tokens_translated.append(translated_token)
                 except Exception as e:
-                    print(f"Translation error: {e}")
+                    print(f"Translation error: {e}")    
 
     def __str__(self):
         return self.card.image.name
 
     def save(self, *args, **kwargs):
         sourceLan = self.card.lan
-        if sourceLan == "nl" or sourceLan == "fr":
+        if sourceLan == "nl" or sourceLan == "fr" or sourceLan == "it":
             self.populateTranslationForDutch(sourceLan)
         super().save(*args, **kwargs)
         
