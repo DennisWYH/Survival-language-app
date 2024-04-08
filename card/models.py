@@ -8,10 +8,10 @@ from django.dispatch import receiver
 class Card(models.Model):
     LAN_ORIGIN_CHOICES = [
         ("nl", "Dutch"),
-        ("en", "English"),
         ("cn", "Chinese"),
         ("it", "Italian"),
         ("fr", "French")
+        # ("en", "English"), # No english support for now, as I'm not sure what shall be the target language for it
     ]
     GRADE_CHOICES = [
         ("8", "rainbow"),
