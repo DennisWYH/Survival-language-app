@@ -4,7 +4,7 @@ from .models import TextTranslator
 class TextTranslatorAdmin(admin.ModelAdmin):
     list_display = [
         "card",
-        "display_card_lan"
+        "display_card_lan",
         "translated_text",
         "tokens",
         "creation_date",
