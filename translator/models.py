@@ -3,16 +3,18 @@ from django.db.models import JSONField
 from card.models import Card
 from nltk.tokenize import word_tokenize
 from deep_translator import GoogleTranslator
-
+from datetime import datetime
 
 class TextTranslator(models.Model):
     card = models.OneToOneField(
         Card, on_delete=models.CASCADE, related_name="translations"
     )
+    now = datetime.now()
     translated_text = models.CharField(max_length=1000, default="", blank=True)
     tokens = JSONField(default=list, blank=True)
     tokens_translated = JSONField(default=list, blank=True)
-
+    creation_date = models.DateTimeField("date created", default=now, blank=True)
+    modification_date = models.DateTimeField("date modified", default=now, blank=True)
 
     def populateTranslationForDutch(self, sourceLan):
         targetLan = "en"

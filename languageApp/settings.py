@@ -144,3 +144,18 @@ SESSION_COOKIE_AGE = 1209600  # 2 weeks, in seconds
 
 # Save the session data on every request
 SESSION_SAVE_EVERY_REQUEST = True
+
+# settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'ERROR',
+    },
+}
