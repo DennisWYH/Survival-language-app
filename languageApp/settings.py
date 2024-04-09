@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Deployment settings following instruction from Digital Occean:
 # see https://docs.digitalocean.com/developer-center/deploy-a-django-app-on-app-platform/
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost", "DOMAIN_ALLOWED").split(",")
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 DEBUG = os.getenv("DEBUG", "FALSE") == "True"
 
