@@ -1,27 +1,31 @@
 from django.contrib import admin
 from .models import TextTranslator
+from .models import TextTokenizer
+
 
 class TextTranslatorAdmin(admin.ModelAdmin):
+    fields = ["card", "translated_text", "tokens_translated"]
     list_display = [
         "card",
-        "display_card_lan",
+        "card_modification_date",
         "translated_text",
-        "tokens",
-        "creation_date",
-        "modification_date",
+        "tokens_translated",
     ]
-    def display_card_lan(self, obj):
-        return obj.card.lan
-    display_card_lan.short_description = 'Lan origin'
 
-    def change_view(self, request, object_id, form_url="", extra_context=None):
-        # Get the object instance
-        obj = TextTranslator.objects.get(pk=object_id)
-        # Pass the instance to the template context
-        extra_context = extra_context or {}
-        extra_context["instance"] = obj
-        return super().change_view(
-            request, object_id, form_url, extra_context=extra_context
-        )
+    def card_modification_date(self, obj):
+        return obj.card.modification_date
+
+    card_modification_date.short_description = "Card Modification Date"
+
+
+class TextTokenizerAdmin(admin.ModelAdmin):
+    fields = ["card", "tokens", "creation_date", "modification_date"]
+    list_display = ["card", "tokens", "creation_date", "modification_date"]
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        TextTranslator.objects.get_or_create(card=obj)
+
 
 admin.site.register(TextTranslator, TextTranslatorAdmin)
+admin.site.register(TextTokenizer, TextTokenizerAdmin)

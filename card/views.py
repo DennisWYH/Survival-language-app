@@ -6,7 +6,7 @@ from .models import Card, UserCardAnswer
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from user.models import UserProfile
-from translator.models import TextTranslator
+from translator.models import TextTranslator, TextTokenizer
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -46,6 +46,7 @@ def detail(request, card_id, language=None):
         try:
             card = Card.objects.get(pk=card_id)
             translator = TextTranslator.objects.get(card=card)
+            tokenizer = TextTokenizer.objects.get(card=card)
         except Card.DoesNotExist:
             raise Http404("Card does not exist")
 
@@ -71,7 +72,7 @@ def detail(request, card_id, language=None):
             'user_card_answer': user_card_answer,
             'previous_card': previous_card,
             'next_card': next_card,
-            'tokens': translator.tokens,
+            'tokens': tokenizer.tokens,
             'tokens_translated': translator.tokens_translated,
         }
         return HttpResponse(template.render(context, request))
@@ -84,5 +85,4 @@ def update_answer(request, card_id):
         user_card_answer, created = UserCardAnswer.objects.update_or_create(
             user=request.user, card=card, defaults={'answer': answer}
         )
-        print("------ update method called----")
         return JsonResponse({'status': 'success'})
