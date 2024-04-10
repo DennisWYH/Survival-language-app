@@ -63,9 +63,8 @@ class TextTokenizer(models.Model):
     tokens = JSONField(default=list, blank=True)
 
     # Some regular date fields
-    now = datetime.now()
-    creation_date = models.DateTimeField("date created", default=now, blank=True)
-    modification_date = models.DateTimeField("date modified", default=now, blank=True)
+    creation_date = models.DateTimeField("date created", blank=True)
+    modification_date = models.DateTimeField("date modified", blank=True)
 
     def __str__(self):
         return self.card.original_image.name
