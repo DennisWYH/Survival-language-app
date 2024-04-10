@@ -22,10 +22,6 @@ class TextTokenizerAdmin(admin.ModelAdmin):
     fields = ["card", "tokens"]
     list_display = ["card", "tokens"]
 
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-        TextTranslator.objects.get_or_create(card=obj)
-
 
 admin.site.register(TextTranslator, TextTranslatorAdmin)
 admin.site.register(TextTokenizer, TextTokenizerAdmin)

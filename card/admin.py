@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Card, UserCardAnswer
-from translator.models import TextTokenizer
 
 class CardAdmin(admin.ModelAdmin):
     fields = [
@@ -13,8 +12,8 @@ class CardAdmin(admin.ModelAdmin):
         "upload_by_userName",
     ]
     list_display = [
-        # "original_image",
-        # "png_image",
+        "original_image",
+        "png_image",
         "lan",
         "grade",
         "text",
@@ -42,7 +41,7 @@ class CardAdmin(admin.ModelAdmin):
         if not obj.upload_by_userName:
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
-        TextTokenizer.objects.get_or_create(card=obj)
+        # TextTokenizer.objects.get_or_create(card=obj)
 
 
 class CardAnswerAdmin(admin.ModelAdmin):
