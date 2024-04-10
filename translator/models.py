@@ -47,7 +47,7 @@ class TextTranslator(models.Model):
                     print(f"Translation error: {e}")    
 
     def __str__(self):
-        return self.card.image.name
+        return self.card.original_image.name
 
     def save(self, *args, **kwargs):
         source_lan = self.card.lan
@@ -68,7 +68,7 @@ class TextTokenizer(models.Model):
     modification_date = models.DateTimeField("date modified", default=now, blank=True)
 
     def __str__(self):
-        return self.card.image.name
+        return self.card.original_image.name
     
     def make_tokens(self):
         """Tokenize the text on the card."""
