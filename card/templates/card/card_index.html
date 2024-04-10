@@ -55,9 +55,9 @@
                                     data-href="/lang/{{ card.lan }}/{{ card.id }}/"
                                     data-grade="{{ card.grade }}">
                                     <th scope="row">{{ forloop.counter }}</th>
-                                    <th
+                                    <th>
                                         {% if card.original_image %}
-                                            <img src="{{ card.original_image.url }}" style="width: 50px; height: 50px;">
+                                        <img src="{{ card.original_image.url }}" style="width: 50px; height: 50px;">
                                         {% endif %}
                                     </th>
                                     <th>{{ card.user_answer }}</th>
