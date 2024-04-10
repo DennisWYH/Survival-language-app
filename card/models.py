@@ -1,13 +1,8 @@
-from io import BytesIO
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 from django.apps import apps
-from django.dispatch import receiver
-from django.core.files.base import ContentFile
-from PIL import Image
-
+from django.core.exceptions import ObjectDoesNotExist
 
 class Card(models.Model):
     """Model for a card."""
@@ -33,7 +28,7 @@ class Card(models.Model):
     ]
     comment = models.CharField("comment", max_length=500, default="", blank=True)
     original_image = models.ImageField("original image", upload_to="card", default="")
-    png_image = models.ImageField("png version of the image", upload_to="card", default="",blank=True)
+    png_image = models.ImageField("png image", upload_to="card", default="",blank=True)
     lan = models.CharField(
         "language", max_length=2, choices=LAN_ORIGIN_CHOICES, default=""
     )
@@ -57,21 +52,12 @@ class Card(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.original_image:
-            # Open the original image using Pillow
-            img = Image.open(self.original_image)
 
-            # Convert the image to PNG
-            output = BytesIO()
-            img.save(output, format='PNG')
-            output.seek(0)
-
-            content_file = ContentFile(output.read())
-            file_name = f"{self.original_image.name.split('.')[0]}.png"
-
-            # Save the new PNG image
-            self.png_image.save(file_name, content_file, save=False)
-        super().save(*args, **kwargs)  # Save model with new PNG image
+        TextTokenizer = apps.get_model('translator', 'TextTokenizer')
+        try:
+            TextTokenizer.objects.get(card=self)
+        except ObjectDoesNotExist:
+            TextTokenizer.objects.create(card=self)
 
 
 class UserCardAnswer(models.Model):
@@ -102,11 +88,3 @@ class UserScore(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
     date = models.DateField()
-
-
-@receiver(post_save, sender=Card)
-def create_text_translator(sender, instance, created, **kwargs):
-    """Create a TextTranslator object for a card if the card is created and its language is Dutch or French."""
-    if created and (instance.lan == "nl" or instance.lan == "fr"):
-        text_translator = apps.get_model("translator", "TextTranslator")
-        text_translator.objects.create(card=instance)
