@@ -59,7 +59,7 @@ class Card(models.Model):
         super().save(*args, **kwargs)
         if self.original_image:
             # Open the original image using Pillow
-            img = Image.open(self.original_image.path)
+            img = Image.open(self.original_image)
 
             # Convert the image to PNG
             output = BytesIO()

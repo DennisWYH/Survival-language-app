@@ -1,7 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
 from .models import Card, UserCardAnswer
-from django.utils import timezone
 from translator.models import TextTokenizer
 
 class CardAdmin(admin.ModelAdmin):
