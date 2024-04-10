@@ -6,6 +6,7 @@ from django.dispatch import receiver
 
 
 class Card(models.Model):
+    """Model for a card."""
     LAN_ORIGIN_CHOICES = [
         ("nl", "Dutch"),
         ("cn", "Chinese"),
@@ -43,6 +44,7 @@ class Card(models.Model):
         return self.image.name
 
     def get_language_code(self, lan_name):
+        """Return the language code for a given language name."""
         for code, name in self.LAN_ORIGIN_CHOICES:
             if name.lower() == lan_name.lower():
                 return code
@@ -53,6 +55,7 @@ class Card(models.Model):
 
 
 class UserCardAnswer(models.Model):
+    """Model for user's answer to a card."""
     CARD_ANSWER_CHOICES = [
         ("FL", "flash"),
         ("DN", "done"),
@@ -67,6 +70,7 @@ class UserCardAnswer(models.Model):
         return f"User: {self.user.username}\nCard ID: {self.card.id}\nAnswer: {self.get_answer_display()}\nTimestamp: {self.timestamp}\n"
 
     class Meta:
+        """Define unique_together constraint for UserCardAnswer model."""
         unique_together = (
             "user",
             "card",
@@ -74,6 +78,7 @@ class UserCardAnswer(models.Model):
 
 
 class UserScore(models.Model):
+    """Model for user's score."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
     date = models.DateField()
@@ -81,6 +86,7 @@ class UserScore(models.Model):
 
 @receiver(post_save, sender=Card)
 def create_text_translator(sender, instance, created, **kwargs):
+    """Create a TextTranslator object for a card if the card is created and its language is Dutch or French."""
     if created and (instance.lan == "nl" or instance.lan == "fr"):
-        TextTranslator = apps.get_model("translator", "TextTranslator")
-        TextTranslator.objects.create(card=instance)
+        text_translator = apps.get_model("translator", "TextTranslator")
+        text_translator.objects.create(card=instance)

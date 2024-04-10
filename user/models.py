@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from card.models import Card
 
 class UserProfile(models.Model):
+    """Model for user profile."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(default='')
     target_lan = models.CharField(max_length=2, choices=Card.LAN_ORIGIN_CHOICES, default='')
@@ -13,5 +14,6 @@ class UserProfile(models.Model):
         return self.user.username
     
     def get_target_lan_display(self):
-        LAN_ORIGIN_CHOICES_DICT = dict(Card.LAN_ORIGIN_CHOICES)
-        return LAN_ORIGIN_CHOICES_DICT.get(self.target_lan, '')
+        """Return the display value for target_lan."""
+        lan_choices = dict(Card.LAN_ORIGIN_CHOICES)
+        return lan_choices.get(self.target_lan, '')
