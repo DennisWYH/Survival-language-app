@@ -2,18 +2,21 @@ from django.contrib import admin
 from .models import Card, UserCardAnswer
 
 class CardAdmin(admin.ModelAdmin):
+    # The fields that will be displayed in the admin's change view
     fields = [
         "original_image",
         "png_image",
+        "png_image_exist",
         "text",
         "comment",
         "grade",
         "lan",
         "upload_by_userName",
     ]
+    # The fields that will be displayed in the admin's list view
     list_display = [
         "original_image",
-        "png_image",
+        "png_image_exist",
         "lan",
         "grade",
         "text",
