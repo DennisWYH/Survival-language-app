@@ -66,7 +66,6 @@ class Card(models.Model):
             img.save(output, format='PNG')
             output.seek(0)
 
-            # Create a new Django file-like object to hold the image
             content_file = ContentFile(output.read())
             file_name = f"{self.original_image.name.split('.')[0]}.png"
 
