@@ -24,7 +24,6 @@ class CardAdmin(admin.ModelAdmin):
         "text",
         "upload_by_userName",
         "modification_date",
-        "creation_date",
     ]
     list_display_links = ["text"]
 
