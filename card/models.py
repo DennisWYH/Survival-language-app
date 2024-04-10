@@ -41,8 +41,8 @@ class Card(models.Model):
     text = models.CharField(
         "text extration of the image", max_length=500, default="", blank=True
     )
-    creation_date = models.DateTimeField("date created")
-    modification_date = models.DateTimeField("date modified", blank=True)
+    creation_date = models.DateTimeField("date created", auto_now_add=True)
+    modification_date = models.DateTimeField("date modified", auto_now=True, blank=True)
     upload_by_userName = models.CharField(max_length=30, default="")
 
     def __str__(self):

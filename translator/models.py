@@ -16,8 +16,8 @@ class TextTranslator(models.Model):
     tokens_translated = JSONField(default=list, blank=True)
 
     # Some basic date fields
-    creation_date = models.DateTimeField("date created", blank=True)
-    modification_date = models.DateTimeField("date modified", blank=True)
+    creation_date = models.DateTimeField("date created", auto_now_add=True, blank=True)
+    modification_date = models.DateTimeField("date modified",auto_now=True, blank=True)
 
     def make_translations(self, source_lan):
         """Translate the text on the card."""
@@ -63,8 +63,8 @@ class TextTokenizer(models.Model):
     tokens = JSONField(default=list, blank=True)
 
     # Some regular date fields
-    creation_date = models.DateTimeField("date created", blank=True)
-    modification_date = models.DateTimeField("date modified", blank=True)
+    creation_date = models.DateTimeField("date created", auto_now_add=True, blank=True)
+    modification_date = models.DateTimeField("date modified", auto_now=True, blank=True)
 
     def __str__(self):
         return self.card.original_image.name

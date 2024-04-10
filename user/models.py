@@ -9,6 +9,8 @@ class UserProfile(models.Model):
     target_lan = models.CharField(max_length=2, choices=Card.LAN_ORIGIN_CHOICES, default='')
     grade = models.CharField(max_length=3, choices=Card.GRADE_CHOICES, default='4')
     night_mode = models.BooleanField(default=False)
+    creation_date = models.DateTimeField("date created", auto_now_add=True, blank=True)
+
     
     def __str__(self):
         return self.user.username
