@@ -12,8 +12,6 @@ class CardAdmin(admin.ModelAdmin):
         "comment",
         "grade",
         "lan",
-        "creation_date",
-        "modification_date",
         "upload_by_userName",
     ]
     list_display = [
@@ -23,7 +21,6 @@ class CardAdmin(admin.ModelAdmin):
         "grade",
         "text",
         "upload_by_userName",
-        "modification_date",
     ]
     list_display_links = ["text"]
 

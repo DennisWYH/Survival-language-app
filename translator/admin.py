@@ -19,8 +19,8 @@ class TextTranslatorAdmin(admin.ModelAdmin):
 
 
 class TextTokenizerAdmin(admin.ModelAdmin):
-    fields = ["card", "tokens", "creation_date", "modification_date"]
-    list_display = ["card", "tokens", "creation_date", "modification_date"]
+    fields = ["card", "tokens", "modification_date"]
+    list_display = ["card", "tokens", "modification_date"]
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
