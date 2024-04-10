@@ -16,9 +16,8 @@ class TextTranslator(models.Model):
     tokens_translated = JSONField(default=list, blank=True)
 
     # Some basic date fields
-    now = datetime.now()
-    creation_date = models.DateTimeField("date created", default=now, blank=True)
-    modification_date = models.DateTimeField("date modified", default=now, blank=True)
+    creation_date = models.DateTimeField("date created", blank=True)
+    modification_date = models.DateTimeField("date modified", blank=True)
 
     def make_translations(self, source_lan):
         """Translate the text on the card."""
