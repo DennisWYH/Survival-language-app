@@ -17,8 +17,8 @@ class CardAdmin(admin.ModelAdmin):
         "upload_by_userName",
     ]
     list_display = [
-        "original_image",
-        "png_image",
+        # "original_image",
+        # "png_image",
         "lan",
         "grade",
         "text",
