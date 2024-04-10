@@ -6,9 +6,10 @@ from translator.models import TextTokenizer
 
 class CardAdmin(admin.ModelAdmin):
     fields = [
-        "image",
-        "comment",
+        "original_image",
+        "png_image",
         "text",
+        "comment",
         "grade",
         "lan",
         "creation_date",
@@ -16,7 +17,8 @@ class CardAdmin(admin.ModelAdmin):
         "upload_by_userName",
     ]
     list_display = [
-        "image",
+        "original_image",
+        "png_image",
         "lan",
         "grade",
         "text",

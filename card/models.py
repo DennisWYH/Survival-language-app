@@ -1,8 +1,12 @@
+from io import BytesIO
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.apps import apps
 from django.dispatch import receiver
+from django.core.files.base import ContentFile
+from PIL import Image
 
 
 class Card(models.Model):
@@ -28,7 +32,8 @@ class Card(models.Model):
         ("4", "Green"),
     ]
     comment = models.CharField("comment", max_length=500, default="", blank=True)
-    image = models.ImageField("image of the card", upload_to="card", default="")
+    original_image = models.ImageField("original image", upload_to="card", default="")
+    png_image = models.ImageField("png version of the image", upload_to="card", default="",blank=True)
     lan = models.CharField(
         "language", max_length=2, choices=LAN_ORIGIN_CHOICES, default=""
     )
@@ -41,7 +46,7 @@ class Card(models.Model):
     upload_by_userName = models.CharField(max_length=30, default="")
 
     def __str__(self):
-        return self.image.name
+        return self.original_image.name
 
     def get_language_code(self, lan_name):
         """Return the language code for a given language name."""
@@ -52,6 +57,22 @@ class Card(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        if self.original_image:
+            # Open the original image using Pillow
+            img = Image.open(self.original_image.path)
+
+            # Convert the image to PNG
+            output = BytesIO()
+            img.save(output, format='PNG')
+            output.seek(0)
+
+            # Create a new Django file-like object to hold the image
+            content_file = ContentFile(output.read())
+            file_name = f"{self.original_image.name.split('.')[0]}.png"
+
+            # Save the new PNG image
+            self.png_image.save(file_name, content_file, save=False)
+        super().save(*args, **kwargs)  # Save model with new PNG image
 
 
 class UserCardAnswer(models.Model):
