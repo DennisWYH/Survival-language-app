@@ -38,8 +38,6 @@ class CardAdmin(admin.ModelAdmin):
         form = super().get_form(request, obj, **kwargs)
         if obj is None:  # Only fill the field for new instances
             form.base_fields["upload_by_userName"].initial = request.user.username
-            form.base_fields["creation_date"].initial = timezone.now()
-            form.base_fields["modification_date"].initial = timezone.now()
         return form
 
     def save_model(self, request, obj, form, change):
