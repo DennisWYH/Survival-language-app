@@ -7,6 +7,9 @@ from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from user.models import UserProfile
 from translator.models import TextTranslator, TextTokenizer
+from django.shortcuts import render
+from django.http import HttpResponseServerError
+
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -86,3 +89,7 @@ def update_answer(request, card_id):
             user=request.user, card=card, defaults={'answer': answer}
         )
         return JsonResponse({'status': 'success'})
+    
+# A customer server error view
+def server_error(request):
+    return render(request, "card/500.html")
