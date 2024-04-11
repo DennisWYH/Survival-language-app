@@ -28,7 +28,7 @@ class Card(models.Model):
     ]
     comment = models.CharField("comment", max_length=500, default="", blank=True)
     original_image = models.ImageField("original image", upload_to="card", default="")
-    png_image = models.ImageField("png image", upload_to="card", default="",blank=True)
+    png_image = models.ImageField("png image", upload_to="png", default="",blank=True)
     png_image_exist = models.BooleanField("png image exist", default=False)
     lan = models.CharField(
         "language", max_length=2, choices=LAN_ORIGIN_CHOICES, default=""

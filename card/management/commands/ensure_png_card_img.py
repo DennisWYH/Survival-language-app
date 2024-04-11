@@ -5,8 +5,10 @@ from PIL import Image
 from django.core.files.base import ContentFile
 from io import BytesIO
 
+import os
 
-class Command(BaseCommand):
+
+class Command(BaseCommand): 
     help = 'Generate PNG image for card objects if they dont have it yet.'
 
     def add_arguments(self, parser):
@@ -47,7 +49,8 @@ class Command(BaseCommand):
                 output.seek(0)
 
                 content_file = ContentFile(output.read())
-                file_name = f"{card.original_image.name.split('.')[0]}.png"
+                file_name = os.path.basename(card.original_image.name)
+                file_name = f"{file_name.split('.')[0]}.png"
 
                 # Save the new PNG image
                 card.png_image.save(file_name, content_file, save=False)
