@@ -56,8 +56,10 @@
                                     data-grade="{{ card.grade }}">
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <th>
-                                        {% if card.original_image %}
-                                        <img src="{{ card.original_image.url }}" style="width: 50px; height: 50px;">
+                                        {% if card.png_image_exist and card.png_image %}
+                                            <img src="{{ card.png_image.url }}" style="width: 50px; height: 50px;">
+                                        {% else %}
+                                            <img src="{{ card.original_image.url }}" style="width: 50px; height: 50px;">
                                         {% endif %}
                                     </th>
                                     <th>{{ card.user_answer }}</th>

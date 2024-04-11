@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Card, UserCardAnswer
+from django.core.management import call_command
 
 class CardAdmin(admin.ModelAdmin):
     # The fields that will be displayed in the admin's change view
@@ -45,6 +46,15 @@ class CardAdmin(admin.ModelAdmin):
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
         # TextTokenizer.objects.get_or_create(card=obj)
+
+ 
+    actions = ['generate_png_images']   
+    def generate_png_images(self, request, queryset):
+        print("--- admin generate png images function called ---")
+        for card in queryset:
+            print("card ---", card.id       )
+            call_command('ensure_png_card_img', card_id=str(card.id))
+    generate_png_images.short_description = 'Generate PNG Images'
 
 
 class CardAnswerAdmin(admin.ModelAdmin):

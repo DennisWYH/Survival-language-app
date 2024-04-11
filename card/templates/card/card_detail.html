@@ -63,7 +63,9 @@
                           </form>
                         </div>
                         <div style="max-width:100%; max-height: 30vh; height:auto;width:600px; object-fit: cover">
-                            {% if card.original_image %}
+                            {% if card.png_image_exist and card.png_image %}
+                                <img style="object-fit: contain;" src="{{ card.png_image.url }}" alt="Card Image" class="card-img-bottom">
+                            {% else %}
                             <img style="object-fit: contain;" src="{{ card.original_image.url }}" alt="Card Image" class="card-img-bottom">
                             {% endif %}
                         </div>
