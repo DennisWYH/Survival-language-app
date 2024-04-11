@@ -2,7 +2,6 @@ media/
 card/__pycache__
 environment/
 *.pyc
-site screen shots/
 .DS_Store
 db.sqlite3
 manage.sh

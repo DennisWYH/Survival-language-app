@@ -1,11 +1,11 @@
+
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 from django.apps import apps
-from django.dispatch import receiver
-
+from django.core.exceptions import ObjectDoesNotExist
 
 class Card(models.Model):
+    """Model for a card."""
     LAN_ORIGIN_CHOICES = [
         ("nl", "Dutch"),
         ("cn", "Chinese"),
@@ -27,7 +27,9 @@ class Card(models.Model):
         ("4", "Green"),
     ]
     comment = models.CharField("comment", max_length=500, default="", blank=True)
-    image = models.ImageField("image of the card", upload_to="card", default="")
+    original_image = models.ImageField("original image", upload_to="card", default="")
+    png_image = models.ImageField("png image", upload_to="card", default="",blank=True)
+    png_image_exist = models.BooleanField("png image exist", default=False)
     lan = models.CharField(
         "language", max_length=2, choices=LAN_ORIGIN_CHOICES, default=""
     )
@@ -35,14 +37,15 @@ class Card(models.Model):
     text = models.CharField(
         "text extration of the image", max_length=500, default="", blank=True
     )
-    creation_date = models.DateTimeField("date created")
-    modification_date = models.DateTimeField("date modified", blank=True)
+    creation_date = models.DateTimeField("date created", auto_now_add=True)
+    modification_date = models.DateTimeField("date modified", auto_now=True, blank=True)
     upload_by_userName = models.CharField(max_length=30, default="")
 
     def __str__(self):
-        return self.image.name
+        return self.original_image.name
 
     def get_language_code(self, lan_name):
+        """Return the language code for a given language name."""
         for code, name in self.LAN_ORIGIN_CHOICES:
             if name.lower() == lan_name.lower():
                 return code
@@ -51,8 +54,15 @@ class Card(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+        TextTokenizer = apps.get_model('translator', 'TextTokenizer')
+        try:
+            TextTokenizer.objects.get(card=self)
+        except ObjectDoesNotExist:
+            TextTokenizer.objects.create(card=self)
+
 
 class UserCardAnswer(models.Model):
+    """Model for user's answer to a card."""
     CARD_ANSWER_CHOICES = [
         ("FL", "flash"),
         ("DN", "done"),
@@ -67,6 +77,7 @@ class UserCardAnswer(models.Model):
         return f"User: {self.user.username}\nCard ID: {self.card.id}\nAnswer: {self.get_answer_display()}\nTimestamp: {self.timestamp}\n"
 
     class Meta:
+        """Define unique_together constraint for UserCardAnswer model."""
         unique_together = (
             "user",
             "card",
@@ -74,13 +85,7 @@ class UserCardAnswer(models.Model):
 
 
 class UserScore(models.Model):
+    """Model for user's score."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
     date = models.DateField()
-
-
-@receiver(post_save, sender=Card)
-def create_text_translator(sender, instance, created, **kwargs):
-    if created and (instance.lan == "nl" or instance.lan == "fr"):
-        TextTranslator = apps.get_model("translator", "TextTranslator")
-        TextTranslator.objects.create(card=instance)

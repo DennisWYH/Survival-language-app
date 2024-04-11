@@ -1,28 +1,26 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
 from .models import Card, UserCardAnswer
-from django.utils import timezone
-from translator.models import TextTokenizer
 
 class CardAdmin(admin.ModelAdmin):
+    # The fields that will be displayed in the admin's change view
     fields = [
-        "image",
-        "comment",
+        "original_image",
+        "png_image",
+        "png_image_exist",
         "text",
+        "comment",
         "grade",
         "lan",
-        "creation_date",
-        "modification_date",
         "upload_by_userName",
     ]
+    # The fields that will be displayed in the admin's list view
     list_display = [
-        "image",
+        "original_image",
+        "png_image_exist",
         "lan",
         "grade",
         "text",
         "upload_by_userName",
-        "modification_date",
-        "creation_date",
     ]
     list_display_links = ["text"]
 
@@ -40,15 +38,13 @@ class CardAdmin(admin.ModelAdmin):
         form = super().get_form(request, obj, **kwargs)
         if obj is None:  # Only fill the field for new instances
             form.base_fields["upload_by_userName"].initial = request.user.username
-            form.base_fields["creation_date"].initial = timezone.now()
-            form.base_fields["modification_date"].initial = timezone.now()
         return form
 
     def save_model(self, request, obj, form, change):
         if not obj.upload_by_userName:
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
-        TextTokenizer.objects.get_or_create(card=obj)
+        # TextTokenizer.objects.get_or_create(card=obj)
 
 
 class CardAnswerAdmin(admin.ModelAdmin):
