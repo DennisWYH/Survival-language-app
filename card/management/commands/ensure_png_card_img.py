@@ -49,6 +49,8 @@ class Command(BaseCommand):
                 output.seek(0)
 
                 content_file = ContentFile(output.read())
+                # right now the original_image name is as such card/abc.jpg
+                # basename would only takes in abc.jpg part
                 file_name = os.path.basename(card.original_image.name)
                 file_name = f"{file_name.split('.')[0]}.png"
 
