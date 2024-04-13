@@ -17,7 +17,7 @@ class Command(BaseCommand):
         png_image_names = {os.path.basename(name) for name in png_image_names}
 
         # Create a resource using your AWS credentials
-        s3 = boto3.resource('s3',endpoint_url="https://ams3.digitaloceanspaces.com",aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
+        s3 = boto3.resource('s3',endpoint_url="https://ams3.digitaloceanspaces.com",aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
         s3Client = boto3.client('s3',aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
 
         # Specify your bucket name
