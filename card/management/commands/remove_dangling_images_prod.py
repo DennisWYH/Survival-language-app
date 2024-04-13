@@ -16,30 +16,26 @@ class Command(BaseCommand):
         original_image_names = {os.path.basename(name) for name in original_image_names}
         png_image_names = {os.path.basename(name) for name in png_image_names}
 
-        # Create a session using your AWS credentials
-        s3 = boto3.resource('s3',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-        endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
+        # Create a resource using your AWS credentials
+        s3 = boto3.resource('s3',endpoint_url="https://ams3.digitaloceanspaces.com",aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
+        s3Client = boto3.client('s3',aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
 
         # Specify your bucket name
         bucket_name = "languagereference"
+        bucket = s3.Bucket(bucket_name)
+        all_files = bucket.objects.all()
 
-        response = s3.list_objects_v2(Bucket=bucket_name)
+        # Delete images in card directory that do not belong to any Card object
+        for file in all_files:
+            filename = os.path.basename(file.key)
+            if filename not in original_image_names and filename not in png_image_names:
+                s3Client.delete_object(Bucket=bucket_name, Key=file.key)
 
-        if 'Contents' in response:
-            all_files = response['Contents']
+        # This works to delete one object
+        # s3Client = boto3.client('s3',aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
+        # result = s3Client.delete_object(Bucket="media", Key="card/caterpillar.png")
 
-            # Delete images in card directory that do not belong to any Card object
-            for file in all_files:
-                filename = os.path.basename(file['Key'])
-                if filename not in original_image_names and 'card' in file['Key']:
-                    s3.delete_object(Bucket=bucket_name, Key=file['Key'])
-                    print(f'Removed {filename} from card directory')
 
-            # Delete images in png directory that do not belong to any Card object
-            for file in all_files:
-                filename = os.path.basename(file['Key'])
-                if filename not in png_image_names and 'png' in file['Key']:
-                    s3.delete_object(Bucket=bucket_name, Key=file['Key'])
-                    print(f'Removed {filename} from png directory')
+        # To have the correct access you need to remove the bucket name from the endpoint url
+        # s3Resource = boto3.resource('s3', endpoint_url="https://ams3.digitaloceanspaces.com", aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'), aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+        # bucket = s3Resource.Bucket('languagereference')
