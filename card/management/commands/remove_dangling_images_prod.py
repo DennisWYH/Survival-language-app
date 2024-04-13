@@ -19,7 +19,7 @@ class Command(BaseCommand):
 
         # Create a resource using your AWS credentials
         s3 = boto3.resource('s3',endpoint_url="https://ams3.digitaloceanspaces.com",aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
-        s3Client = boto3.client('s3',aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
+        s3Client = boto3.client('s3',endpoint_url="https://ams3.digitaloceanspaces.com", aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 
         # Specify your bucket name
         bucket_name = "languagereference"
@@ -32,7 +32,8 @@ class Command(BaseCommand):
             print("bucket file name", filename)
             if filename not in original_image_names:
                 print("bucket file name not in db", filename, "removing")
-                s3Client.delete_object(Bucket="media", Key=file.key)
+                print("key of the file is", file.key)
+                s3Client.delete_object(Bucket=bucket_name, Key=file.key)
 
         # This works to delete one object
         # s3Client = boto3.client('s3',aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
