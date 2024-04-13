@@ -4,6 +4,7 @@ import os
 from django.conf import settings
 
 
+# Doesn't work in production
 class Command(BaseCommand): 
     help = 'Remove dangling images that are not in the record of db.'
 
