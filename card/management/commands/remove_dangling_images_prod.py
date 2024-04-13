@@ -25,19 +25,21 @@ class Command(BaseCommand):
         # Specify your bucket name
         bucket_name = "languagereference"
 
-        # Get a list of all files in the bucket
-        all_files = s3.Bucket(bucket_name).objects.all()
+        response = s3.list_objects_v2(Bucket=bucket_name)
 
-        # Delete images in card directory that do not belong to any Card object
-        for file in all_files:
-            filename = os.path.basename(file.key)
-            if filename not in original_image_names and 'card' in file.key:
-                s3.Object(bucket_name, file.key).delete()
-                print(f'Removed {filename} from card directory')
+        if 'Contents' in response:
+            all_files = response['Contents']
 
-        # Delete images in png directory that do not belong to any Card object
-        for file in all_files:
-            filename = os.path.basename(file.key)
-            if filename not in png_image_names and 'png' in file.key:
-                s3.Object(bucket_name, file.key).delete()
-                print(f'Removed {filename} from png directory')
+            # Delete images in card directory that do not belong to any Card object
+            for file in all_files:
+                filename = os.path.basename(file['Key'])
+                if filename not in original_image_names and 'card' in file['Key']:
+                    s3.delete_object(Bucket=bucket_name, Key=file['Key'])
+                    print(f'Removed {filename} from card directory')
+
+            # Delete images in png directory that do not belong to any Card object
+            for file in all_files:
+                filename = os.path.basename(file['Key'])
+                if filename not in png_image_names and 'png' in file['Key']:
+                    s3.delete_object(Bucket=bucket_name, Key=file['Key'])
+                    print(f'Removed {filename} from png directory')
