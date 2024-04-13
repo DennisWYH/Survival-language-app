@@ -23,12 +23,13 @@ class Command(BaseCommand):
 
         # Delete images in card directory that do not belong to any Card object
         for filename in os.listdir(card_dir):
-            if filename not in original_image_names:
+            file_path = os.path.join(card_dir, filename)
+            if os.path.isfile(file_path) and filename not in original_image_names:
                 os.remove(os.path.join(card_dir, filename))
                 print(f'Removed {filename} from card directory')
 
-        # Delete images in png directory that do not belong to any Card object
         for filename in os.listdir(png_dir):
-            if filename not in png_image_names:
-                os.remove(os.path.join(png_dir, filename))
+            file_path = os.path.join(png_dir, filename)
+            if os.path.isfile(file_path) and filename not in png_image_names:
+                os.remove(file_path)
                 print(f'Removed {filename} from png directory')
