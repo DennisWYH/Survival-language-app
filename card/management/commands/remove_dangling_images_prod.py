@@ -23,7 +23,7 @@ class Command(BaseCommand):
         endpoint_url=os.getenv('AWS_S3_ENDPOINT_URL'))
 
         # Specify your bucket name
-        bucket_name = os.getenv('AWS_STORAGE_BUCKET_NAME')
+        bucket_name = "languagereference"
 
         # Get a list of all files in the bucket
         all_files = s3.Bucket(bucket_name).objects.all()
