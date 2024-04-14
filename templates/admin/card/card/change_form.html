@@ -3,7 +3,9 @@
 
 {% block content %}
 <div class="module aligned">
-	{% if original.original_image %}
+	{% if original.png_image %}
+		<img src="{{ original.png_image.url }}" alt="{{ original.png_image.name }}" style="max-width: 200px; max-height: 200px;">
+	{% else %}
 		<img src="{{ original.original_image.url }}" alt="{{ original.original_image.name }}" style="max-width: 200px; max-height: 200px;">
 	{% endif %}
 </div>
