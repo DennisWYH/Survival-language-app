@@ -14,8 +14,14 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--card_id', type=int)
 
+    def png_name_from_original_img(card):
+        png_img_name = os.path.basename(card.original_image.name)
+        png_img_name = f"{png_img_name.split('.')[0]}.png"
+        return png_img_name
+
+
     def handle(self, *args, **options):
-        print("--- command handler called ----")
+        print("--- ensure_png_card_img command handler called ----")
 
         card_id = options.get('card_id')
         if card_id:
@@ -24,7 +30,8 @@ class Command(BaseCommand):
             cards = Card.objects.all()
         for card in cards:
             if card.original_image and card.original_image.name.lower().endswith('.png'):
-                card.png_image.save(card.original_image.name, card.original_image, save=False)
+                png_img_name = self.png_name_from_original_img(card)
+                card.png_image.save(png_img_name, card.original_image, save=False)
                 card.png_image_exist = True
                 card.save()
                 print(f"PNG image is already PNG , {card.id}, {card.original_image.name}")
@@ -51,11 +58,10 @@ class Command(BaseCommand):
                 content_file = ContentFile(output.read())
                 # right now the original_image name is as such card/abc.jpg
                 # basename would only takes in abc.jpg part
-                file_name = os.path.basename(card.original_image.name)
-                file_name = f"{file_name.split('.')[0]}.png"
+                png_img_name = self.png_name_from_original_img(card)
 
                 # Save the new PNG image
-                card.png_image.save(file_name, content_file, save=False)
+                card.png_image.save(png_img_name, content_file, save=False)
                 card.png_image_exist = True
                 card.save()  # Save model with new PNG image
                 print(f"Making PNG image for card, {card.id}, {card.original_image.name}")
