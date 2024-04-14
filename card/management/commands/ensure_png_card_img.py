@@ -14,7 +14,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--card_id', type=int)
 
-    def png_name_from_original_img(card):
+    def png_name_from_original_img(self, card):
         png_img_name = os.path.basename(card.original_image.name)
         png_img_name = f"{png_img_name.split('.')[0]}.png"
         return png_img_name
