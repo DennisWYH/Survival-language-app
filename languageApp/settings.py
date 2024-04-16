@@ -16,9 +16,10 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 DEBUG = os.getenv("DEBUG", "FALSE") == "True"
 
 INSTALLED_APPS = [
-    'user.apps.UserConfig',
     'card.apps.CardConfig',
+    'user.apps.UserConfig',
     'translator.apps.TranslatorConfig',
+    'wordranking.apps.WordrankingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,48 +1,27 @@
 from django.db import models
 from card.models import Card
-from nltk.tokenize import word_tokenize
-from deep_translator import GoogleTranslator
-from datetime import datetime
+from .word_grade import words_grade
+from translator.models import TextTokenizer
 
 # Let's use some statistics to determine the grade of a language text :)
 class WordGradeByScience(models.Model):
-    GRADE_CHOICES = [
-        ("8", "rainbow"),
-        ("7a+", "mint"),
-        ("7a", "White"),
-        ("6c+", "purple"),
-        ("6c", "red"),
-        ("6b+", "DarkBlue"),
-        ("6b", "Yellow"),
-        ("6a+", "Orange"),
-        ("6a", "Black"),
-        ("5", "LightBlue"),
-        ("4", "Green"),
-    ]
-
     MAGIC_RECEIPES = [
         ("simple_magic", "The first simple algorism"),
     ]
-    card = models.ManyToOneRel(
-        Card, on_delete=models.CASCADE, related_name="translations"
-    )
-    # I might come up with multiple grades for one text according to different algorisms 
-    # during experiment period to see which one makes more sense
-    algorismName = models.CharField(max_length=50, choices=MAGIC_RECEIPES, default="")
-    # Harder words would be given more weights
-    overallGrade = models.CharField(max_length=3, choices=GRADE_CHOICES, default="",)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="ranking")
+    algorism_name = models.CharField(max_length=50, choices=MAGIC_RECEIPES, default="")
+    average_grade_number = models.FloatField(max_length=10, default="", blank=True)
+    # average_grade_flag = models.FloatField(max_length=10, default="")
+    token_grade_list = models.JSONField(default=dict, blank=True)
 
     # Some time fields never do harm
-    now = datetime.now()
-    creation_date = models.DateTimeField("date created", default=now, blank=True)
-    modification_date = models.DateTimeField("date modified", default=now, blank=True)
+    creation_date = models.DateTimeField("date created", auto_now_add=True, blank=True)
+    modification_date = models.DateTimeField("date modified",auto_now=True, blank=True)
 
     def __str__(self):
-        return self.card.text
+        return f"Card ID: {self.card.id}, Average Grade: {self.average_grade_number}, Token Grades: {self.token_grade_list}"
 
     def save(self, *args, **kwargs):
-        sourceLan = self.card.lan
-        if sourceLan == "nl" or sourceLan == "fr" or sourceLan == "it":
-            self.populateTranslationForDutch(sourceLan)
+        tokenizer = TextTokenizer.objects.get(card=self.card)
+        self.average_grade_number, self.token_grade_list = words_grade(tokenizer.tokens)
         super().save(*args, **kwargs)
-        
