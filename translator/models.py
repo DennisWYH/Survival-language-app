@@ -72,7 +72,7 @@ class TextTokenizer(models.Model):
     
     def make_tokens(self):
         """Tokenize the text on the card."""
-        self.tokens = word_tokenize(self.card.text)
+        self.tokens = word_tokenize(self.card.text, language=self.card.get_language_display())
     def save(self, *args, **kwargs):
         if not self.tokens:
             self.make_tokens()

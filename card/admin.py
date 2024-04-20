@@ -45,8 +45,6 @@ class CardAdmin(admin.ModelAdmin):
         if not obj.upload_by_userName:
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
-        # TextTokenizer.objects.get_or_create(card=obj)
-
  
     actions = ['generate_png_images']   
     def generate_png_images(self, request, queryset):

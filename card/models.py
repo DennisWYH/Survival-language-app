@@ -44,6 +44,12 @@ class Card(models.Model):
     def __str__(self):
         return self.original_image.name
 
+    # Displays the human readable language of the language choices, e.g. "French" instead of "fr"
+    def get_language_display(self):
+        """Return the human-readable language display."""
+        return dict(self.LAN_ORIGIN_CHOICES).get(self.lan, "")
+
+
     def get_language_code(self, lan_name):
         """Return the language code for a given language name."""
         for code, name in self.LAN_ORIGIN_CHOICES:
@@ -54,6 +60,7 @@ class Card(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+        # On creating a new card, create a TextTranslator and TextTokenizer object for it
         TextTokenizer = apps.get_model('translator', 'TextTokenizer')
         try:
             TextTokenizer.objects.get(card=self)
