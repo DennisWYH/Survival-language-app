@@ -30,7 +30,7 @@
 }
 
 /* 10 grades all in total */
-.grade-4 { background-color: blue; }
+.grade-4 { background-color: blue;}
 .grade-5 { background-color: black; }
 .grade-6a { background-color: purple; }
 .grade-6a-plus { background-color: red; }
@@ -44,4 +44,5 @@
     background-color: white; 
     border-style: solid; 
     border-color: grey;
+    color: black;
 }
