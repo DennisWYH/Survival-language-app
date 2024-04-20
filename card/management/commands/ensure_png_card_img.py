@@ -14,10 +14,13 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--card_id', type=int)
 
-    def png_name_from_original_img(self, card):
+    def png_name_from_original_img(self, card, keep_extension=False):
         png_img_name = os.path.basename(card.original_image.name)
-        png_img_name = f"{png_img_name.split('.')[0]}.png"
+        if not keep_extension:
+            png_img_name = os.path.splitext(png_img_name)
+            png_img_name = f"{png_img_name}.png"
         return png_img_name
+
 
 
     def handle(self, *args, **options):
@@ -30,8 +33,8 @@ class Command(BaseCommand):
             cards = Card.objects.all()
         for card in cards:
             if card.original_image and card.original_image.name.lower().endswith('.png'):
-                png_img_name = self.png_name_from_original_img(card)
-                card.png_image.save(png_img_name, card.original_image, save=False)
+                new_png_name = self.png_name_from_original_img(card, True)
+                card.png_image.save(new_png_name, card.original_image, save=False)
                 card.png_image_exist = True
                 card.save()
                 print(f"PNG image is already PNG , {card.id}, {card.original_image.name}")
@@ -58,7 +61,7 @@ class Command(BaseCommand):
                 content_file = ContentFile(output.read())
                 # right now the original_image name is as such card/abc.jpg
                 # basename would only takes in abc.jpg part
-                png_img_name = self.png_name_from_original_img(card)
+                png_img_name = self.png_name_from_original_img(card, False)
 
                 # Save the new PNG image
                 card.png_image.save(png_img_name, content_file, save=False)
