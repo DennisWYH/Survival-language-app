@@ -40,3 +40,8 @@
 .grade-6c-plus { background-color: green; }
 .grade-7a { background-color: brown; }
 .grade-7a-plus { background-color: pink; }
+.grade-8 { 
+    background-color: white; 
+    border-style: solid; 
+    border-color: grey;
+}

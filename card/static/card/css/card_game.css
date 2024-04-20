@@ -34,15 +34,3 @@
     background-color: #9748FF;
     color: white;
 }
-
-/* The grade chart color */
-.grade-4 { background-color: blue; }
-.grade-5 { background-color: black; }
-.grade-6a { background-color: purple; }
-.grade-6a-plus { background-color: red; }
-.grade-6b { background-color: orange; }
-.grade-6b-plus { background-color: yellow;}
-.grade-6c { background-color: mediumaquamarine; }
-.grade-6c-plus { background-color: green; }
-.grade-7a { background-color: brown; }
-.grade-7a-plus { background-color: pink; }

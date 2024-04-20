@@ -36,5 +36,5 @@
 .grade-6b-plus { background-color: blue; }
 .grade-6c { background-color: red; }
 .grade-6c-plus { background-color: purple; }
-.grade-7a { background-color: white; }
+.grade-7a { background-color: white; border-style: solid; border-color: black;}
 .grade-7a-plus { background-color: mediumaquamarine; }

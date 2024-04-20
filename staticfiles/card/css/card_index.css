@@ -3,6 +3,7 @@
     max-width: 1100px;
     min-width: 400px;
     height:fit-content;
+    background-color: #FAFAF5;
 }
 .page-container:hover {
     cursor: pointer;
