@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Card Detail Page</title>
+        {% load static %}
+        <!-- Icons for the sidebar -->
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+              rel="stylesheet">
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
+        <!-- Style sheets -->
+        <link rel="stylesheet"
+              href="{% static 'card/css/sidebar.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'card/css/card_game.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'card/css/navigation.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'card/css/card_base.css' %}">
+        <!-- Front for the topbar text -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rock+3D&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        {% load my_filters %}
+        <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
+            <div class="left-flex-container">
+                {% include 'site_sidebar.html' %}
+            </div>
+            <div class="right-flex-container mt-5" style="width: 100%; display:flex; justify-content: center;">
+                <div class="right-column col-md-11">
+                    <!-- The topbar -->
+                    <div class="row col-md-12 no-gutters">
+                        <div class="border-bottom ">
+                            <div class="mb-3 d-flex align-items-center">
+                                <div class="col-10">
+                                    <p class="rock-3d-regular">Learn language from real world</p>
+                                </div>
+                                <div class="col-1 justify-content-end">
+                                    <button type="button" class="btn btn-info rounded-pill text-light">Game mode</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-outline-info rounded-pill">List view</button>
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="row card-content col-md-12 d-flex p-4 justify-content-between">
+                        {% for card in two_cards %}
+                            <div class="col-6">
+                                <div class="card game-card-shadow" style="width: 24rem">
+                                    <img src={{ card.original_image.url }} class="card-img-top" alt="..." style="height: 18rem; object-fit: cover;">
+                                    <div class="card-body">
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row bottom-bar col-md-12 d-flex">
+                        <div class="d-flex flex-row-reverse">
+                            <button type="butston" class="btn btn-primary">Primary</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Second column: a grade chart -->
+                <div class="right-sidebar col-md-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Right Sidebar</h5>
+                            <p class="card-text">Content of Right Sidebar...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Bootstrap 5 JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous">
+        </script>
+    </body>
+</html>
