@@ -30,6 +30,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Rock+3D&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <body>
         {% load my_filters %}
@@ -50,37 +51,44 @@
                                     <button type="button" class="btn btn-info rounded-pill text-light">Game mode</button>
                                 </div>
                                 <div class="col-1">
-                                    <button type="button" class="btn btn-outline-info rounded-pill">List view</button>
+                                    <a type="button" class="btn btn-outline-info rounded-pill" href="{% url 'index'%}">List view</a>
                                 </div>    
                             </div>    
                         </div>
                     </div>
-                    <div class="row card-content col-md-12 d-flex p-4 justify-content-between">
+                    <div class="row card-content col-md-12 p-4">
                         {% for card in two_cards %}
-                            <div class="col-6">
-                                <div class="card game-card-shadow" style="width: 24rem">
-                                    <img src={{ card.original_image.url }} class="card-img-top" alt="..." style="height: 18rem; object-fit: cover;">
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="col-6 d-flex justify-content-center">
+                                <div class="card border-shadow card-background" style="width: 28rem">
+                                    <img src={{ card.original_image.url }} class="card-img-top border-shadow" alt="..." style="height: 18rem; object-fit: cover;">
+                                    <div class="card-body d-flex justify-content-center">
+                                        <p class="card-text inter-font">{{ card.text }}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>    
                         {% endfor %}
                     </div>
-                    <div class="row bottom-bar col-md-12 d-flex">
-                        <div class="d-flex flex-row-reverse">
-                            <button type="butston" class="btn btn-primary">Primary</button>
+                    <div class="row bottom-bar col-md-12 d-flex justify-content-center mt-4">
+                        <div class="col-2 d-flex justify-content-center">
+                            <button type="button" class="btn new-batch-button rounded-pill">New batch 🌟</button>
                         </div>
                     </div>
                 </div>
                 <!-- Second column: a grade chart -->
                 <div class="right-sidebar col-md-1">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Right Sidebar</h5>
-                            <p class="card-text">Content of Right Sidebar...</p>
-                        </div>
-                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">More</li>
+                        <li class="list-group-item grade-7a-plus text-light">7a+</li>
+                        <li class="list-group-item grade-7a">7a</li>
+                        <li class="list-group-item grade-6c-plus text-light">6c+</li>
+                        <li class="list-group-item grade-6c text-light">6c</li>
+                        <li class="list-group-item grade-6b-plus text-light">6b+</li>
+                        <li class="list-group-item grade-6b text-light">6b</li>
+                        <li class="list-group-item grade-6a-plus text-light">6a+</li>
+                        <li class="list-group-item grade-6a text-light">6a</li>
+                        <li class="list-group-item grade-5 text-light">5</li>
+                        <li class="list-group-item grade-4 text-light">4</li>
+                    </ul>
                 </div>
             </div>          
         </div>
