@@ -1,9 +1,11 @@
 import os
 import sys
+import nltk
 
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'languageApp.settings')
+    nltk.download('punkt')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
