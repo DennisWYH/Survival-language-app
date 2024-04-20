@@ -8,8 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from user.models import UserProfile
 from translator.models import TextTranslator, TextTokenizer
 from django.shortcuts import render
-from django.http import HttpResponseServerError
-
+import random
 
 class UserCardAnswerForm(forms.Form):
     CARD_ANSWER_CHOICES = [
@@ -77,6 +76,17 @@ def detail(request, card_id, language=None):
             'next_card': next_card,
             'tokens': tokenizer.tokens,
             'tokens_translated': translator.tokens_translated,
+        }
+        return HttpResponse(template.render(context, request))
+
+def game(request, language=None):
+    if request.method == 'GET':
+        cards = Card.objects.filter(lan=language)
+        two_cards = random.sample(list(cards), 2)
+
+        template = loader.get_template("card/card_game.html")
+        context = {
+            'two_cards': two_cards,
         }
         return HttpResponse(template.render(context, request))
 
