@@ -161,6 +161,3 @@ LOGGING = {
         'level': 'ERROR',
     },
 }
-
-# Download nltk package
-nltk.download('punkt')
