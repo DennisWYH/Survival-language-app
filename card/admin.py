@@ -55,7 +55,7 @@ class CardAdmin(admin.ModelAdmin):
         for card in queryset:
             print("card ---", card.id)
             call_command('ensure_png_card_img', card_id=str(card.id))
-    generate_png_images.short_description = 'Generate PNG Images'
+    generate_png_images.short_description = 'Generate PNG & Thumbnail Images'
 
 class CardAnswerAdmin(admin.ModelAdmin):
     list_display = ["id", "card", "answer_text"]
