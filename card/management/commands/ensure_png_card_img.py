@@ -39,9 +39,9 @@ class Command(BaseCommand):
             cards = Card.objects.all()
         for card in cards:
             # Everything in place
-            # if card.thumbnail_exist and card.png_image_exist:
-            #     print(f"Card already has PNG and thumbnail, {card.id}")
-            #     continue
+            if card.thumbnail_exist and card.png_image_exist:
+                print(f"Card already has PNG and thumbnail, {card.id}")
+                continue
 
             # If the card has no image field, nothing to work with
             if card.original_image is None:
