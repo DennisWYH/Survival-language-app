@@ -8,7 +8,7 @@ class CardAdmin(admin.ModelAdmin):
         "original_image",
         "png_image",
         "png_image_exist",
-        "thumgnail",
+        "thumbnail",
         "thumbnail_exist",
         "text",
         "comment",
