@@ -57,14 +57,6 @@ class CardAdmin(admin.ModelAdmin):
             call_command('ensure_png_card_img', card_id=str(card.id))
     generate_png_images.short_description = 'Generate PNG Images'
 
-    actions = ['generate_thumbnail_image']
-    def generate_thumbnail(self, request, queryset):
-        print("--- admin generate thumbnail function called ---")
-        for card in queryset:
-            print("card ---", card.id)
-            call_command('ensure_png_card_img', card_id=str(card.id))
-    generate_thumbnail.short_description = 'Generate thumbnail'
-
 class CardAnswerAdmin(admin.ModelAdmin):
     list_display = ["id", "card", "answer_text"]
 

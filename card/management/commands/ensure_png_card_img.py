@@ -76,11 +76,12 @@ class Command(BaseCommand):
                 print(f"Making PNG image for card, {card.id}, {card.original_image.name}")
 
                 # Save the new thumgnail image
-                output2 = BytesIO()
-                img.thumbnail(128, 128)
-                img.save(output2, format='JPEG')
-                output2.seek(0)
+                img2 = Image.open(card.original_image)
 
+                output2 = BytesIO()
+                img2.thumbnail(128, 128)
+                img2.save(output2, format='JPEG')
+                output2.seek(0)
                 content_file2 = ContentFile(output2.read())
 
                 thumbnailName = self.thumbnail_from_original_img(card, False)
