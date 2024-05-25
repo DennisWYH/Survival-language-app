@@ -46,14 +46,21 @@ class CardAdmin(admin.ModelAdmin):
             obj.upload_by_userName = request.user.username
         super().save_model(request, obj, form, change)
  
-    actions = ['generate_png_images']   
+    actions = ['generate_png_images']
     def generate_png_images(self, request, queryset):
         print("--- admin generate png images function called ---")
         for card in queryset:
-            print("card ---", card.id       )
+            print("card ---", card.id)
             call_command('ensure_png_card_img', card_id=str(card.id))
     generate_png_images.short_description = 'Generate PNG Images'
 
+    actions = ['generate_thumbnail_image']
+    def generate_thumbnail(self, request, queryset):
+        print("--- admin generate thumbnail function called ---")
+        for card in queryset:
+            print("card ---", card.id)
+            call_command('ensure_png_card_img', card_id=str(card.id))
+    generate_thumbnail.short_description = 'Generate thumbnail'
 
 class CardAnswerAdmin(admin.ModelAdmin):
     list_display = ["id", "card", "answer_text"]
