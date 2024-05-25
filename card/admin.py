@@ -8,6 +8,8 @@ class CardAdmin(admin.ModelAdmin):
         "original_image",
         "png_image",
         "png_image_exist",
+        "thumgnail",
+        "thumbnail_exist",
         "text",
         "comment",
         "grade",
@@ -18,6 +20,7 @@ class CardAdmin(admin.ModelAdmin):
     list_display = [
         "original_image",
         "png_image_exist",
+        "thumbnail_exist",
         "lan",
         "grade",
         "text",

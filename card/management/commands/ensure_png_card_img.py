@@ -21,6 +21,12 @@ class Command(BaseCommand):
             png_img_name = f"{png_img_name}.png"
         return png_img_name
 
+    def thumbnail_from_original_img(self, card, keep_extension=False):
+        thumbnail_img_name = os.path.basename(card.original_image.name)
+        if not keep_extension:
+            thumbnail_img_name = os.path.splitext(thumbnail_img_name)
+            thumbnail_img_name = f"{thumbnail_img_name}_thumbnail.jpeg"
+        return thumbnail_img_name
 
 
     def handle(self, *args, **options):
@@ -68,4 +74,17 @@ class Command(BaseCommand):
                 card.png_image_exist = True
                 card.save()  # Save model with new PNG image
                 print(f"Making PNG image for card, {card.id}, {card.original_image.name}")
+
+                # Save the new thumgnail image
+                output2 = BytesIO()
+                img.thumbnail(128, 128)
+                img.save(output2, format='JPEG')
+                output2.seek(0)
+
+                content_file2 = ContentFile(output2.read())
+
+                thumbnailName = self.thumbnail_from_original_img(card, False)
+                card.thumbnail.save(thumbnailName, content_file2, save=False)
+                card.thumbnail_exist = True
+                print(f"Making thumbnail image for card, {card.id}, {card.original_image.name}")
 
