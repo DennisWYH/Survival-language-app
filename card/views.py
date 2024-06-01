@@ -5,6 +5,7 @@ from django.http import Http404
 from .models import Card, UserCardAnswer
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 from user.models import UserProfile
 from translator.models import TextTranslator, TextTokenizer
 from django.shortcuts import render
@@ -35,12 +36,40 @@ def index(request, language='nl'):
         for card in cards:
             card.user_answer = None
 
+    paginator = Paginator(cards, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    limit = paginator.per_page
+    offset = 0
+    if page_number is not None:
+        offset = (int(page_number) -1) * limit
+    safeOffset, safeLimit = safeOffsetLimit(len(cards), offset, limit)
+    cards = cards[safeOffset:safeOffset+safeLimit]
+
     template = loader.get_template("card/card_index.html")
     context = {
         "cards": cards,
         "language": language,
+        "page_obj": page_obj,
     }
     return HttpResponse(template.render(context, request))
+
+
+def safeOffsetLimit(total, offset, limit):
+    if offset < 0:
+        offset = 0
+        if limit > total:
+            limit = total-1
+    elif offset < total-limit:
+        return offset, limit
+    elif offset >= total - limit and offset <= total:
+        limit = total-1
+        return offset, limit
+    else:
+        offset = total
+        limit = 0
+        return offset, limit
 
 @csrf_exempt
 def detail(request, card_id, language=None):
