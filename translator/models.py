@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import JSONField
 from nltk.tokenize import word_tokenize
 from deep_translator import GoogleTranslator
+import nltk
 
 from django.apps import apps
 
@@ -71,6 +72,7 @@ class TextTokenizer(models.Model):
         return self.card.original_image.name
     
     def make_tokens(self):
+        nltk.download('punkt')
         """Tokenize the text on the card."""
         self.tokens = word_tokenize(self.card.text, language=self.card.get_language_display())
     def save(self, *args, **kwargs):
