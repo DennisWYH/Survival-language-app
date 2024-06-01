@@ -57,6 +57,8 @@ def index(request, language='nl'):
 
 
 def safeOffsetLimit(total, offset, limit):
+    if total == 0:
+        return 0, 0
     if offset < 0:
         offset = 0
         if limit > total:
