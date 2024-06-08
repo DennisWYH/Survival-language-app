@@ -24,6 +24,7 @@ def index(request, language='nl'):
         language = UserProfile.objects.get(user=request.user).target_lan
 
     cards = Card.objects.filter(lan=language)
+    # If logged in user, we need to extract the user's answer for those cards
     if request.user.is_authenticated:
         user_card_answers = UserCardAnswer.objects.filter(user=request.user)
         user_answers = {uca.card.id: uca.answer for uca in user_card_answers}
@@ -37,13 +38,11 @@ def index(request, language='nl'):
             card.user_answer = None
 
     paginator = Paginator(cards, 8)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator.get_page(request.GET.get('page'))
 
     limit = paginator.per_page
-    offset = 0
-    if page_number is not None:
-        offset = (int(page_number) -1) * limit
+    offset = (page_obj.number -1) * limit
+
     safeOffset, safeLimit = safeOffsetLimit(len(cards), offset, limit)
     cards = cards[safeOffset:safeOffset+safeLimit]
 
@@ -55,19 +54,19 @@ def index(request, language='nl'):
     }
     return HttpResponse(template.render(context, request))
 
-
 def safeOffsetLimit(total, offset, limit):
     if total == 0:
         return 0, 0
+    # This shall never happen
     if offset < 0:
         offset = 0
         if limit > total:
             limit = total-1
+            return offset, limit
     elif offset < total-limit:
-        return offset, limit
+        return offset, total
     elif offset >= total - limit and offset <= total:
-        limit = total-1
-        return offset, limit
+        return offset, total
     else:
         offset = total
         limit = 0
