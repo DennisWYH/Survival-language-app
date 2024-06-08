@@ -11,8 +11,8 @@ class Card(models.Model):
         ("cn", "Chinese"),
         ("it", "Italian"),
         ("fr", "French")
-        # ("en", "English"), # No english support for now, as I'm not sure what shall be the target language for it
     ]
+
     GRADE_CHOICES = [
         ("8", "rainbow"),
         ("7a+", "mint"),
@@ -62,12 +62,20 @@ class Card(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        # On creating a new card, create a TextTranslator and TextTokenizer object for it
+        # On creating a new card, create a TextTokenizer object for it
         TextTokenizer = apps.get_model('translator', 'TextTokenizer')
+
+        # On creating a new card, create a TextTranslator object for it
+        TextTranslator = apps.get_model('translator', 'TextTranslator')
         try:
             TextTokenizer.objects.get(card=self)
         except ObjectDoesNotExist:
             TextTokenizer.objects.create(card=self)
+
+        try:
+            TextTranslator.objects.get(card=self)
+        except ObjectDoesNotExist:
+            TextTranslator.objects.create(card=self)
 
 
 class UserCardAnswer(models.Model):

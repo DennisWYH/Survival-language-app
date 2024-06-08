@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import JSONField
 from nltk.tokenize import word_tokenize
 from deep_translator import GoogleTranslator
-import nltk
+import jieba
 
 from django.apps import apps
 
@@ -53,8 +53,11 @@ class TextTranslator(models.Model):
 
     def save(self, *args, **kwargs):
         source_lan = self.card.lan
-        if source_lan == "nl" or source_lan == "fr" or source_lan == "it":
-            self.ensure_translations(source_lan)
+        match source_lan:
+            case "cn":
+                self.ensure_translations("zh-CN")
+            case _:
+                self.ensure_translations(source_lan)
         super().save(*args, **kwargs)
 
 class TextTokenizer(models.Model):
@@ -71,12 +74,22 @@ class TextTokenizer(models.Model):
     def __str__(self):
         return self.card.original_image.name
     
-    def make_tokens(self):
-        nltk.download('punkt')
+    # nltk doesn't support chinese tokenization
+    def nltk_make_tokens(self):
         """Tokenize the text on the card."""
         self.tokens = word_tokenize(self.card.text, language=self.card.get_language_display())
+
+    # we use jieba to tokenize mandarin
+    def jieba_make_tokens(self):
+        """Tokenize the text on the card."""
+        seg_list = jieba.cut(self.card.text, cut_all=False)
+        self.tokens = list(seg_list)
+
     def save(self, *args, **kwargs):
+        # On creating textTokenizer object, we try to create tokens field for the object if it doesn't exist yet
         if not self.tokens:
-            self.make_tokens()
+            if self.card.lan == "cn":
+                self.jieba_make_tokens()
+            else:
+                self.nltk_make_tokens()
         super().save(*args, **kwargs)
-        TextTranslator.objects.create(card=self.card)
