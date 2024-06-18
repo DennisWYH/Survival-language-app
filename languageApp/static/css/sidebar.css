@@ -88,12 +88,4 @@
         width: 80px;
         overflow: hidden;
     }
-
-    body .sidebar .sidebar-text {
-        display: none;
-    }
-
-    body .sidebar .profile-username {
-        display: none;
-    }
 }
