@@ -5,9 +5,11 @@
     height:fit-content;
     background-color: #FAFAF5;
 }
+
 .page-container:hover {
     cursor: pointer;
 }
+
 .index-page-container {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
