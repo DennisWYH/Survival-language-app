@@ -28,13 +28,21 @@
     margin-right: 5px;
     margin-left: 5px;
 }
-.grade-4 { background-color: green; }
-.grade-5 { background-color: #3271a8; }
-.grade-6a { background-color: black; }
-.grade-6a-plus { background-color: orange; }
-.grade-6b { background-color: yellow; color: black !important }
-.grade-6b-plus { background-color: blue; }
-.grade-6c { background-color: red; }
-.grade-6c-plus { background-color: purple; }
-.grade-7a { background-color: white; border-style: solid; border-color: black;}
-.grade-7a-plus { background-color: mediumaquamarine; }
+
+/* 10 grades all in total */
+.grade-4 { background-color: blue;}
+.grade-5 { background-color: black; }
+.grade-6a { background-color: purple; }
+.grade-6a-plus { background-color: red; }
+.grade-6b { background-color: orange; }
+.grade-6b-plus { background-color: yellow;}
+.grade-6c { background-color: mediumaquamarine; }
+.grade-6c-plus { background-color: green; }
+.grade-7a { background-color: brown; }
+.grade-7a-plus { background-color: pink; }
+.grade-8 { 
+    background-color: white; 
+    border-style: solid; 
+    border-color: grey;
+    color: black;
+}
