@@ -64,7 +64,7 @@ def safeOffsetLimit(total, offset, limit):
             limit = total-1
             return offset, limit
     elif offset < total-limit:
-        return offset, total
+        return offset, limit
     elif offset >= total - limit and offset <= total:
         return offset, total
     else:
