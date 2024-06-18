@@ -5,10 +5,10 @@
             <div class="profile-container">
                 {% if user.is_authenticated %}
                     <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
-                    <span class="profile-username ml-2 sidebar-text">{{ user.username }}</span>    
+                    <span class="profile-username ml-2 sidebar-text d-md-inline d-none">{{ user.username }}</span>
                 {% else %}
                     <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
-                    <span class="profile-username ml-2 sidebar-text">Welcome! Guest user</span>    
+                    <span class="profile-username ml-2 sidebar-text d-md-inline d-none">Welcome! Guest user</span>
                 {% endif %}
             </div>
         </div>
@@ -16,31 +16,33 @@
             {% url 'user:profile' as profile_url %}
             <a class="sidebar-element sidebar-link mt-3 {% if request.path == profile_url %}active{% endif %}" href="{% url 'user:profile' %}">
                 <i class="fas fa-user mr-2 sidebar-icon"></i>
-                <span class="sidebar-text">View my profile</span>  
+                <span class="sidebar-text d-md-inline d-none">View my profile</span>
             </a> 
         {% else %}
             {% url 'login' as login_url %}
             <a class="sidebar-element sidebar-link mt-3 {% if request.path == login_url %} active {% endif %} " href="{% url 'login' %}">
                 <i class="fas fa-sign-in-alt mr-2 sidebar-icon"></i>
-                <span class="sidebar-text">Login/register</span>
+                <span class="sidebar-text d-md-inline d-none">Login/register</span>
             </a>
         {% endif %}
         {% url 'index' as index_url %}
         <a class="sidebar-element sidebar-link {% if request.path == index_url %}active{% endif %}" href="{% url 'index' %}">
             <i class="fas fa-clone mr-2 sidebar-icon"></i>
-            <span class="sidebar-text">View all cards</span>
+            <span class="sidebar-text d-md-inline d-none">View all cards</span>
         </a> 
         <a class="sidebar-element sidebar-link {% if request.path == progress_url %} active {% endif %}" href="{% url 'progress' %}">
             <i class="fas fa-chart-line mr-2 sidebar-icon"></i>
-            <span class="sidebar-text">My progress</span>
+            <span class="sidebar-text d-md-inline d-none">My progress</span>
         </a> 
         {% url 'about' as about_url %}
         <a class="sidebar-element sidebar-link {% if request.path == about_url %} active {% endif %}" href="{% url 'about' %}">
             <i class="fas fa-info-circle mr-2 sidebar-icon"></i>
-            <span class="sidebar-text">About the site</span>
+            <span class="sidebar-text d-md-inline d-none">About the site</span>
         </a> 
     </div>
-    <button class="toggle-button" data-collapsed="false"><  Collapse Sidebar</button>      
+    <button class="toggle-button" data-collapsed="false">
+        Collapse Sidebar
+    </button>
 </div>
 
 <script>
