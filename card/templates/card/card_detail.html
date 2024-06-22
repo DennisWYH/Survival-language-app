@@ -23,34 +23,37 @@
         <link rel="stylesheet"
               href="{% static 'card/css/card_detail.css' %}">
         <link rel="stylesheet"
+              href="{% static 'card/css/card_index.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'css/sidebar.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'css/topbar.css' %}">
+        <link rel="stylesheet"
               href="{% static 'card/css/navigation.css' %}">
         <link rel="stylesheet"
               href="{% static 'card/css/card_base.css' %}">
     </head>
     <body>
         {% load my_filters %}
-        <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
-            <div class="left-flex-container">
+        <div class="d-flex total-page-container">
+            <div class="sidebar-container sidebar">
                 {% include 'site_sidebar.html' %}
-            </div>
-            <div class="right-flex-container mt-5" style="width: 100%; display:flex; justify-content: center;">
-                <div class="place-holder d-flex align-items-center" style="width: 20px;margin-right:100px;">
-                    {% if previous_card %}
-                        <a id="previous-button" style="border-radius: 25px" href="{% url 'detail' card.lan previous_card.id %}" class="btn btn-md btn-secondary" tabindex="-1" role="button" aria-disabled="true">Previous</a>
-                    {% endif %}
-                </div>
-                <div class="page-container" style="width:70%; height:60%; max-width: 600px; max-height:300px; display: table;margin-right:60px">
+             </div>
+             <div class="topbar-container">
+              {% include 'site_topbar.html' %}
+           </div>
+            <div class="right-flex-container d-flex flex-column index-page-container">
                     <div class="card" style="background-color:#edf1f7;">
                         <div class="card-body">
-                          <h5 class="card-title">Reading:</h5>
-                          <p class="card-text">
+                            <h5 class="card-title">Reading:</h5>
+                            <p class="card-text">
                             {% for token, translated_token in tokens|zip_lists:tokens_translated %}
                                 <span title="{{ translated_token }}">{{ token }}</span>
                             {% endfor %}
                         </p>
                         <span id="grade-badge" data-grade="{{ card.grade }}" class="badge grade-badge rounded-pill">{{card.grade}}</span>
 
-                          <form method="post" class="card-form">
+                            <form method="post" class="card-form">
                             {% csrf_token %}
                             <div class="form-group">
                                 {% for choice in form.answer.field.choices %}
@@ -60,7 +63,7 @@
                                     </button>
                                 {% endfor %}
                             </div>
-                          </form>
+                            </form>
                         </div>
                         <div style="max-width:100%; max-height: 30vh; height:auto;width:600px; object-fit: cover">
                             {% if card.png_image_exist and card.png_image %}
@@ -70,13 +73,7 @@
                             {% endif %}
                         </div>
                     </div>
-                </div>
-                <div class="place-holder d-flex align-items-center" style="width:20px;">
-                    {% if next_card %}
-                        <a id="next-button" style="border-radius: 25px" href="{% url 'detail' card.lan next_card.id %}" class="btn btn-md btn-secondary" tabindex="-1" role="button" aria-disabled="true">Next</a>
-                    {% endif %}
-                </div>
-            </div>  
+        </div>  
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
