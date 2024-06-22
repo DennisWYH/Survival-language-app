@@ -9,51 +9,41 @@
                 {% else %}
                     <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
                     <span class="profile-username ml-2 sidebar-text d-md-inline d-none">Welcome! Guest user</span>
+                    <span class="sidebar-text d-md-none d-inline">Welcome</span>
                 {% endif %}
             </div>
         </div>
         {% if user.is_authenticated %}
             {% url 'user:profile' as profile_url %}
-            <a class="sidebar-element sidebar-link mt-3 {% if request.path == profile_url %}active{% endif %}" href="{% url 'user:profile' %}">
+            <a class="sidebar-element sidebar-link text-nowrap mt-3 {% if request.path == profile_url %}active{% endif %}" href="{% url 'user:profile' %}">
                 <i class="fas fa-user mr-2 sidebar-icon"></i>
-                <span class="sidebar-text d-md-inline d-none">View my profile</span>
+                <span class="sidebar-text d-md-inline d-none text-nowrap">View my profile</span>
+                <span class="sidebar-text d-md-none d-inline">Profile</span>
             </a> 
         {% else %}
             {% url 'login' as login_url %}
-            <a class="sidebar-element sidebar-link mt-3 {% if request.path == login_url %} active {% endif %} " href="{% url 'login' %}">
+            <a class="sidebar-element sidebar-link text-nowrap mt-3 {% if request.path == login_url %} active {% endif %} " href="{% url 'login' %}">
                 <i class="fas fa-sign-in-alt mr-2 sidebar-icon"></i>
-                <span class="sidebar-text d-md-inline d-none">Login/register</span>
+                <span class="sidebar-text d-md-inline d-none text-nowrap">Login/register</span>
+                <span class="sidebar-text d-md-none d-inline">Login</span>
             </a>
         {% endif %}
         {% url 'index' as index_url %}
-        <a class="sidebar-element sidebar-link {% if request.path == index_url %}active{% endif %}" href="{% url 'index' %}">
+        <a class="sidebar-element sidebar-link text-nowrap {% if request.path == index_url %}active{% endif %}" href="{% url 'index' %}">
             <i class="fas fa-clone mr-2 sidebar-icon"></i>
-            <span class="sidebar-text d-md-inline d-none">View all cards</span>
+            <span class="sidebar-text d-md-inline d-none text-nowrap">View all cards</span>
+            <span class="sidebar-text d-md-none d-inline">All</span>
         </a> 
-        <a class="sidebar-element sidebar-link {% if request.path == progress_url %} active {% endif %}" href="{% url 'progress' %}">
+        <a class="sidebar-element sidebar-link text-nowrap {% if request.path == progress_url %} active {% endif %}" href="{% url 'progress' %}">
             <i class="fas fa-chart-line mr-2 sidebar-icon"></i>
-            <span class="sidebar-text d-md-inline d-none">My progress</span>
+            <span class="sidebar-text d-md-inline d-none text-nowrap">My progress</span>
+            <span class="sidebar-text d-md-none d-inline">Progress</span>
         </a> 
         {% url 'about' as about_url %}
-        <a class="sidebar-element sidebar-link {% if request.path == about_url %} active {% endif %}" href="{% url 'about' %}">
+        <a class="sidebar-element sidebar-link text-nowrap {% if request.path == about_url %} active {% endif %}" href="{% url 'about' %}">
             <i class="fas fa-info-circle mr-2 sidebar-icon"></i>
-            <span class="sidebar-text d-md-inline d-none">About the site</span>
+            <span class="sidebar-text d-md-inline d-none text-nowrap">About the site</span>
+            <span class="sidebar-text d-md-none d-inline">About</span>
         </a> 
     </div>
-    <button class="toggle-button" data-collapsed="false">
-        Collapse Sidebar
-    </button>
 </div>
-
-<script>
-    document.querySelector(".toggle-button").addEventListener("click", function() {
-        const sidebar = document.querySelector(".sidebar");
-        const pageContainer = document.querySelector(".page-container");
-        const button = document.querySelector(".toggle-button");
-        const isCollapsed = button.dataset.collapsed === "true";
-        sidebar.classList.toggle("collapsed");
-        pageContainer.classList.toggle("collapsed");
-        button.dataset.collapsed = !isCollapsed;
-        button.textContent = isCollapsed ? "<  Collapse Sidebar" : ">>";
-    });
-</script>

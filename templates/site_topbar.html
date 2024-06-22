@@ -1,0 +1,45 @@
+{% load static %}
+<div class="d-flex topbar">
+        <!-- The icon and user name -->
+        <div class="d-inline">
+            <div class="profile-container">
+                {% if user.is_authenticated %}
+                    <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
+                    <span class="profile-username ml-2 sidebar-text">{{ user.username }}</span>
+                {% else %}
+                    <img class="img-thumbnail rounded profile-image" src="{% static 'unicorn.png' %}" alt="profile">
+                    <span class="profile-username ml-2 sidebar-text d-md-inline d-none">Welcome! Guest user</span>
+                    <span class="sidebar-text d-md-none d-inline">Welcome</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Grouped dropdown buttons -->
+        <div class="dropdown ms-auto align-content-center me-2">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% url 'index' as index_url %}
+              <li>
+                <a class="dropdown-item {% if request.path == index_url %} active {% endif %}" href="{% url 'index' %}">
+                    <i class="fas fa-clone mr-2"></i>
+                    <span class="">View all cards</span>
+                </a> 
+              </li>
+              <li>
+                <a class="dropdown-item {% if request.path == progress_url %} active {% endif %}" href="{% url 'progress' %}" href="{% url 'progress' %}">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    <span class="">My progress</span>
+                </a>  
+              </li>        
+              <li>
+                {% url 'about' as about_url %}
+                <a class="dropdown-item {% if request.path == about_url %} active {% endif %}" href="{% url 'about' %}">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span class="">About the site</span>
+                </a>
+                </li>             
+            </ul>
+        </div>
+</div>

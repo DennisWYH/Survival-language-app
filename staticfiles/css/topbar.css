@@ -1,0 +1,6 @@
+.topbar-container {
+    background-color: #9748FF;
+    transition: width 0.1s;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+}

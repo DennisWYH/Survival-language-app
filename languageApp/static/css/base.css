@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+/* For all the pages we render sidebar on big screen, topbar on small screen */
+.topbar-container { */
+    display: none
+}
+@media (max-width: 800px) {
+    /* On small screen hide sidebar, display topbar */
+    .sidebar{
+        display: none;
+    }
+    .topbar-container {
+        display: inline;
+    }
+
+    .total-page-container {
+        flex-direction: column;
+    } 
+}
