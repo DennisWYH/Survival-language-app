@@ -20,89 +20,88 @@
         <link rel="stylesheet"
               href="{% static 'css/sidebar.css' %}">
         <link rel="stylesheet"
+              href="{% static 'css/topbar.css' %}">
+        <!-- Base one contains only font -->
+        <link rel="stylesheet"
               href="{% static 'card/css/card_base.css' %}">
-        <!-- Bootstrap 5 CSS -->
+              <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
               rel="stylesheet"
               integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
               crossorigin="anonymous">
     </head>
     <body>
-        <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
-            <div class="left-flex-container">
-                {% include 'site_sidebar.html' %}
-            </div>
-            <div class="right-flex-container mt-5" style="width: 100%;display:flex; justify-content: center;">
-                <div class="place-holder ml-2"></div>
-                <div class="page-container index-page-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Preview</th>
-                                <th scope="col">State</th>
-                                <th class="on-small-hide-column-800" scope="col">Uploader</th>
-                                <th class="on-small-hide-column-800" scope="col">Language</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col">Text</th>
-                                <th class="on-small-hide-column-850" scope="col">CreatedAt</th>
-                                <th class="on-small-hide-column-950" scope="col">ModifiedAt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for card in cards %}
-                                <tr class="clickable-row"
-                                    data-href="/lang/{{ card.lan }}/{{ card.id }}/"
-                                    data-grade="{{ card.grade }}">
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <th>
-                                        {% if card.thumbnail_exist and card.thumbnail %}
-                                            <img loading="lazy" src="{{ card.thumbnail.url }}" style="width: 50px; height: 50px;">
-                                        {% elif card.png_image_exist and card.png_image %}
-                                            <img loading="lazy" src="{{ card.png_image.url }}" style="width: 50px; height: 50px;">
-                                        {% else %}
-                                            <img loading="lazy" src="{{ card.original_image.url }}" style="width: 50px; height: 50px;">
-                                        {% endif %}
-                                    </th>
-                                    <th>{{ card.user_answer }}</th>
-                                    <td class="on-small-hide-column-800">{{ card.upload_by_userName }}</td>
-                                    <td class="on-small-hide-column-800">{{ card.lan }}</td>
-                                    <td>
-                                        <div style="display: flex; align-items: center;">
-                                            <span class="grade-dot"></span>
-                                            {{ card.grade }}
-                                        </div>
-                                    </td>
-                                    <td>{{ card.text }}</td>
-                                    <td class="on-small-hide-column-850">{{ card.creation_date }}</td>
-                                    <td class="on-small-hide-column-950">{{ card.modification_date }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if page_obj.has_previous %}
-                                <a href="?page=1">&laquo; first</a>
-                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                            {% endif %}
-                    
-                            <span class="current">
-                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                            </span>
-                    
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                            {% endif %}
-                        </span>
-                    </div>
-                    </div>    
-                <div class="place-holder mr-2"></div>
-            </div>
+        <div class="d-flex total-page-container">
+           <div class="sidebar-container sidebar">
+              {% include 'site_sidebar.html' %}
+           </div>
+           <div class="topbar-container">
+            {% include 'site_topbar.html' %}
+         </div>
+         <div class="right-flex-container d-flex flex-column index-page-container">
+              <table class="table">
+                 <thead>
+                    <tr>
+                       <th scope="col">#</th>
+                       <th scope="col">Preview</th>
+                       <th scope="col">State</th>
+                       <th class="d-sm-table-cell d-none" scope="col">Language</th>
+                       <th scope="col">Grade</th>
+                       <th scope="col">Text</th>
+                       <th class="d-md-table-cell d-none" scope="col">Uploader</th>
+                       <th class="d-lg-table-cell d-none" scope="col">CreatedAt</th>
+                       <th class="d-lg-table-cell d-none" scope="col">ModifiedAt</th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                    {% for card in cards %}
+                    <tr class="clickable-row"
+                       data-href="/lang/{{ card.lan }}/{{ card.id }}/"
+                       data-grade="{{ card.grade }}">
+                       <th scope="row">{{ forloop.counter }}</th>
+                       <th>
+                          {% if card.thumbnail_exist and card.thumbnail %}
+                          <img loading="lazy" src="{{ card.thumbnail.url }}" style="width: 50px; height: 50px;">
+                          {% elif card.png_image_exist and card.png_image %}
+                          <img loading="lazy" src="{{ card.png_image.url }}" style="width: 50px; height: 50px;">
+                          {% else %}
+                          <img loading="lazy" src="{{ card.original_image.url }}" style="width: 50px; height: 50px;">
+                          {% endif %}
+                       </th>
+                       <th>{{ card.user_answer }}</th>
+                       <td class="d-md-table-cell d-none">{{ card.lan }}</td>
+                       <td>
+                          <div style="display: flex; align-items: center;">
+                             <span class="grade-dot"></span>
+                             {{ card.grade }}
+                          </div>
+                       </td>
+                       <td>{{ card.text }}</td>
+                       <td class="d-md-table-cell d-none">{{ card.upload_by_userName }}</td>
+                       <td class="d-lg-table-cell d-none">{{ card.creation_date }}</td>
+                       <td class="d-lg-table-cell d-none">{{ card.modification_date }}</td>
+                    </tr>
+                    {% endfor %}
+                 </tbody>
+              </table>
+              <div class="pagination pb-3">
+                 <span class="step-links">
+                 {% if page_obj.has_previous %}
+                 <a href="?page=1">&laquo; first</a>
+                 <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                 {% endif %}
+                 <span class="current">
+                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                 </span>
+                 {% if page_obj.has_next %}
+                 <a href="?page={{ page_obj.next_page_number }}">next</a>
+                 <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                 {% endif %}
+                 </span>
+              </div>
+           </div>
         </div>
-    </body>
-    <script>
+     </body>    <script>
         document.addEventListener("DOMContentLoaded", () => {
             const rows = document.querySelectorAll(".clickable-row");
             rows.forEach(row => {

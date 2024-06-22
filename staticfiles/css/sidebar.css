@@ -1,14 +1,10 @@
-.sidebar {
-    top: 0;
-    left: 0;
-    height: 100%;
-    height: 100vh;
+.sidebar-container {
     width: 180px;
+    min-width: 180px;
     background-color: #9748FF;
-    overflow: auto;
     transition: width 0.1s;
     font-family: 'Roboto', sans-serif;
-    display: flex;
+    /* Flex direction controlls the direction of the elements display */
     flex-direction: column;
     text-decoration: none;
 }
@@ -81,11 +77,4 @@
 
 .toggle-button:hover {
     background-color: #b58bed;
-}
-
-@media screen and (max-width: 767px) {
-    body .sidebar {
-        width: 80px;
-        overflow: hidden;
-    }
 }
