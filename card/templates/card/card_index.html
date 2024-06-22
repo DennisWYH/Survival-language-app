@@ -85,19 +85,34 @@
                  </tbody>
               </table>
               <div class="pagination pb-3">
-                 <span class="step-links">
-                 {% if page_obj.has_previous %}
-                 <a href="?page=1">&laquo; first</a>
-                 <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                 {% endif %}
-                 <span class="current">
-                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                 </span>
-                 {% if page_obj.has_next %}
-                 <a href="?page={{ page_obj.next_page_number }}">next</a>
-                 <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                 {% endif %}
-                 </span>
+
+               <nav aria-label="...">
+                  <ul class="pagination ms-2">
+                     {% if page_obj.has_previous %}
+                     <li class="page-item">
+                        <a class="page-link btn btn-primary" href="?page=1">&laquo; first</a>
+                     </li>
+                     <li class="page-item me-2">
+                        <a class="page-link btn btn-primary" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+                     </li>
+                    {% endif %}
+
+                    <li class="page-item align-content-center me-2">
+                        <span class="current p-0">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                     </li>
+   
+                     {% if page_obj.has_next %}
+                     <li class="page-item">
+                        <a class="page-link btn btn-primary" href="?page={{ page_obj.next_page_number }}">next</a>
+                     </li>
+                     <li class="page-item">
+                        <a class="page-link btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                     </li>
+                    {% endif %}
+                  </ul>
+                </nav>
               </div>
            </div>
         </div>
