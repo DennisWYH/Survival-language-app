@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Login</title>
     <!-- Icons for the sidebar -->
+    {% load static %}
+    <link rel="stylesheet"
+    href="{% static 'card/css/card_index.css' %}">
+    <link rel="stylesheet"
+    href="{% static 'css/topbar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    {% load static %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="{% static 'card/css/container.css' %}">
     <link rel="stylesheet" href="{% static 'card/css/card_detail.css' %}">
@@ -17,11 +21,14 @@
 
 </head>
 <body>
-    <div class="flex-container" style="display:flex; height: 100%; height: 100vh;">
-        <div class="left-flex-container">
+    <div class="d-flex total-page-container">
+        <div class="sidebar-container sidebar">
             {% include 'site_sidebar.html' %}
-        </div>
-        <div class="right-flex-container mt-5 ml-4" style="width: 100%;display:flex; justify-content: left;">
+         </div>
+         <div class="topbar-container">
+          {% include 'site_topbar.html' %}
+       </div>
+      <div class="right-flex-container d-flex flex-column index-page-container">
             <div class="site-border-style p-3" style="height:fit-content;">
                 {% if error_message %}
                     <p>{{error_message}}</p>
